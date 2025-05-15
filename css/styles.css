@@ -1,0 +1,21 @@
+/* Estilos personalizados adicionales */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* Estilos base */
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Animaciones */
+.hover-scale {
+    transition: transform 0.2s ease-in-out;
+}
+
+.hover-scale:hover {
+    transform: scale(1.05);
+}
+
+/* Estilos personalizados adicionales que no se pueden lograr fácilmente con Tailwind */
+.text-shadow {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+} 

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materiales Básicos - Ferramas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body class="bg-white">
+    <header class="bg-white shadow-sm fixed top-0 w-full z-10">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold">Materiales Básicos</h1>
+            <div class="flex items-center space-x-4">
+                <a href="../index.html" class="text-gray-600 hover:text-gray-900">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                    </svg>
+                </a>
+                <button class="relative group">
+                    <svg class="w-6 h-6 text-gray-600 hover:text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                    </svg>
+                    <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                </button>
+                <button class="text-gray-600 hover:text-gray-900">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-20">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <!-- Producto 1 -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <img src="../img/material-1.jpg" alt="Material Básico" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <p class="text-gray-600 text-sm mb-2">PRECIO: $123.000 - U$ 123.000</p>
+                    <h3 class="font-medium mb-2">NOMBRE: MATERIAL UNO</h3>
+                    <p class="text-gray-600 text-sm mb-4">STOCK: 123 UNIDADES</p>
+                    <button class="w-full bg-black text-white py-2 px-4 rounded hover:bg-gray-800 transition-colors">
+                        Agregar al carro
+                    </button>
+                </div>
+            </div>
+
+            <!-- Producto 2 -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <img src="../img/material-2.jpg" alt="Material Básico" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <p class="text-gray-600 text-sm mb-2">PRECIO: $123.000 - U$ 123.000</p>
+                    <h3 class="font-medium mb-2">NOMBRE: MATERIAL UNO</h3>
+                    <p class="text-gray-600 text-sm mb-4">STOCK: 123 UNIDADES</p>
+                    <button class="w-full bg-black text-white py-2 px-4 rounded hover:bg-gray-800 transition-colors">
+                        Agregar al carro
+                    </button>
+                </div>
+            </div>
+
+            <!-- Producto 3 -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <img src="../img/material-3.jpg" alt="Material Básico" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <p class="text-gray-600 text-sm mb-2">PRECIO: $123.000 - U$ 123.000</p>
+                    <h3 class="font-medium mb-2">NOMBRE: MATERIAL UNO</h3>
+                    <p class="text-gray-600 text-sm mb-4">STOCK: 123 UNIDADES</p>
+                    <button class="w-full bg-black text-white py-2 px-4 rounded hover:bg-gray-800 transition-colors">
+                        Agregar al carro
+                    </button>
+                </div>
+            </div>
+
+            <!-- Producto 4 -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                <img src="../img/material-4.jpg" alt="Material Básico" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <p class="text-gray-600 text-sm mb-2">PRECIO: $123.000 - U$ 123.000</p>
+                    <h3 class="font-medium mb-2">NOMBRE: MATERIAL UNO</h3>
+                    <p class="text-gray-600 text-sm mb-4">STOCK: 123 UNIDADES</p>
+                    <button class="w-full bg-black text-white py-2 px-4 rounded hover:bg-gray-800 transition-colors">
+                        Agregar al carro
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../js/main.js"></script>
+</body>
+</html> 

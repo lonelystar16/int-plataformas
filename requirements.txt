@@ -1,0 +1,5 @@
+Flask==2.3.2
+Flask_MySQLdb==1.0.1
+Flask-Cors==4.0.0
+marshmallow==3.20.1
+Flasgger==0.10.1

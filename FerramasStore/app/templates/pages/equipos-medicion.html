@@ -1,18 +1,19 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tornillos y Anclajes - Ferramas</title>
+    <title>Equipos de Medición - Ferramas</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body class="bg-white">
     <header class="bg-white shadow-sm fixed top-0 w-full z-10">
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <h1 class="text-2xl font-bold">Tornillos y Anclajes</h1>
+            <h1 class="text-2xl font-bold">Equipos de Medición</h1>
             <div class="flex items-center space-x-4">
-                <a href="../index.html" class="text-gray-600 hover:text-gray-900">
+                <a href="{% static 'index.html' %}" class="text-gray-600 hover:text-gray-900">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
                     </svg>
@@ -36,10 +37,10 @@
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             <!-- Producto 1 -->
             <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                <img src="../img/tornillo-1.jpg" alt="Tornillo o Anclaje" class="w-full h-48 object-cover">
+                <img src="{% static 'img/medicion-1.jpg' %}" alt="Equipo de Medición" class="w-full h-48 object-cover">
                 <div class="p-4">
                     <p class="text-gray-600 text-sm mb-2">PRECIO: $123.000 - U$ 123.000</p>
-                    <h3 class="font-medium mb-2">NOMBRE: TORNILLO UNO</h3>
+                    <h3 class="font-medium mb-2">NOMBRE: EQUIPO UNO</h3>
                     <p class="text-gray-600 text-sm mb-4">STOCK: 123 UNIDADES</p>
                     <button class="w-full bg-black text-white py-2 px-4 rounded hover:bg-gray-800 transition-colors">
                         Agregar al carro
@@ -49,10 +50,10 @@
 
             <!-- Producto 2 -->
             <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                <img src="../img/tornillo-2.jpg" alt="Tornillo o Anclaje" class="w-full h-48 object-cover">
+                <img src="{% static 'img/medicion-2.jpg' %}" alt="Equipo de Medición" class="w-full h-48 object-cover">
                 <div class="p-4">
                     <p class="text-gray-600 text-sm mb-2">PRECIO: $123.000 - U$ 123.000</p>
-                    <h3 class="font-medium mb-2">NOMBRE: TORNILLO UNO</h3>
+                    <h3 class="font-medium mb-2">NOMBRE: EQUIPO UNO</h3>
                     <p class="text-gray-600 text-sm mb-4">STOCK: 123 UNIDADES</p>
                     <button class="w-full bg-black text-white py-2 px-4 rounded hover:bg-gray-800 transition-colors">
                         Agregar al carro
@@ -62,10 +63,10 @@
 
             <!-- Producto 3 -->
             <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                <img src="../img/tornillo-3.jpg" alt="Tornillo o Anclaje" class="w-full h-48 object-cover">
+                <img src="{% static 'img/medicion-3.jpg' %}" alt="Equipo de Medición" class="w-full h-48 object-cover">
                 <div class="p-4">
                     <p class="text-gray-600 text-sm mb-2">PRECIO: $123.000 - U$ 123.000</p>
-                    <h3 class="font-medium mb-2">NOMBRE: TORNILLO UNO</h3>
+                    <h3 class="font-medium mb-2">NOMBRE: EQUIPO UNO</h3>
                     <p class="text-gray-600 text-sm mb-4">STOCK: 123 UNIDADES</p>
                     <button class="w-full bg-black text-white py-2 px-4 rounded hover:bg-gray-800 transition-colors">
                         Agregar al carro
@@ -75,10 +76,10 @@
 
             <!-- Producto 4 -->
             <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                <img src="../img/tornillo-4.jpg" alt="Tornillo o Anclaje" class="w-full h-48 object-cover">
+                <img src="{% static 'img/medicion-4.jpg' %}" alt="Equipo de Medición" class="w-full h-48 object-cover">
                 <div class="p-4">
                     <p class="text-gray-600 text-sm mb-2">PRECIO: $123.000 - U$ 123.000</p>
-                    <h3 class="font-medium mb-2">NOMBRE: TORNILLO UNO</h3>
+                    <h3 class="font-medium mb-2">NOMBRE: EQUIPO UNO</h3>
                     <p class="text-gray-600 text-sm mb-4">STOCK: 123 UNIDADES</p>
                     <button class="w-full bg-black text-white py-2 px-4 rounded hover:bg-gray-800 transition-colors">
                         Agregar al carro
@@ -88,6 +89,6 @@
         </div>
     </main>
 
-    <script src="../js/main.js"></script>
+    <script src="{% static 'js/main.js' %}"></script>
 </body>
-</html> 
+</html>

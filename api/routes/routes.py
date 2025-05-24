@@ -27,7 +27,7 @@ def register_routes(app, mysql):
     def get_products_by_id():
         products = product_service_by_id.get_all_products()
     
-    # Metodo de pago -
+    # Endpoints
 
 
     app.register_blueprint(api_bp)

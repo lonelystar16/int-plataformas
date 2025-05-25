@@ -17,6 +17,7 @@ urlpatterns = [
     path('equipos-medicion/', views.equipos_medicion, name='equipos_medicion'),
     path('login/', views.login, name='login'),
     path('register/', views.register, name='register'),
+    path('checkout/', views.checkout, name='checkout'),
     # Rutas de la API
     path('api/', include(router.urls)),
 ]

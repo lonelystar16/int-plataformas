@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Página no encontrada - Error 404</title>
+    <meta http-equiv="refresh" content="5; url={% url 'home' %}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f8f9fa;
+            color: #333;
+            text-align: center;
+            padding-top: 100px;
+        }
+        .container {
+            display: inline-block;
+            background: #fff;
+            padding: 40px 60px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        h1 {
+            font-size: 72px;
+            margin-bottom: 10px;
+            color: #dc3545;
+        }
+        p {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        a {
+            color: #007bff;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>404</h1>
+        <p>La página que buscas no existe.</p>
+        <p>Serás redirigido a la <a href="{% url 'mainPage' %}">página principal</a> en 5 segundos.</p>
+    </div>
+</body>
+</html>

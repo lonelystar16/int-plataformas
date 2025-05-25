@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework import routers
-from app.presentation import views
+from FerramasStore.app.presentation import views
 
 router = routers.DefaultRouter()
 router.register(r'productos', views.ProductoViewSet)

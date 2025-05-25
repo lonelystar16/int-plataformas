@@ -13,18 +13,59 @@
         <div class="container mx-auto px-4 py-4 flex justify-between items-center">
             <h1 class="text-2xl font-bold">Herramientas Manuales</h1>
             <div class="flex items-center space-x-4">
-                <a href="{% url 'index' %}" class="text-gray-600 hover:text-gray-900">
+                <a href="{% url 'index' %}" class="text-gray-600 hover:text-gray-900 transition-colors">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
                     </svg>
                 </a>
-                <button class="relative group">
-                    <svg class="w-6 h-6 text-gray-600 hover:text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
-                    </svg>
-                    <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
-                </button>
-                <button class="text-gray-600 hover:text-gray-900">
+                
+                <!-- ========== INICIO COMPONENTE CARRITO ========== -->
+                <!-- Contenedor del carrito con posicionamiento relativo -->
+                <div class="relative">
+                    <button id="cart-btn" class="relative group">
+                        <svg class="w-6 h-6 text-gray-600 hover:text-gray-900 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+                        </svg>
+                        <span id="cart-count" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center transition-all duration-200">0</span>
+                    </button>
+                    
+                    <!-- Carrito resumen modal - Ahora correctamente posicionado -->
+                    <div id="cart-summary" class="hidden absolute top-full right-0 mt-2 w-80 bg-white shadow-xl rounded-lg z-50 border border-gray-200 transform transition-all duration-200 opacity-0 scale-95">
+                        <div class="p-4">
+                            <div class="flex justify-between items-center mb-3">
+                                <h2 class="text-lg font-bold text-gray-800">Carrito de Compras</h2>
+                                <button onclick="closeCart()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            
+                            <div class="max-h-60 overflow-y-auto mb-4">
+                                <ul id="cart-items" class="space-y-2"></ul>
+                            </div>
+                            
+                            <div class="border-t pt-3">
+                                <div class="flex justify-between items-center mb-3">
+                                    <span class="font-semibold text-gray-800">Total:</span>
+                                    <span class="font-bold text-lg text-gray-900">$<span id="cart-total">0</span></span>
+                                </div>
+                                
+                                <div class="flex space-x-2">
+                                    <button onclick="clearCart()" class="flex-1 bg-gray-100 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-200 transition-colors text-sm">
+                                        Vaciar
+                                    </button>
+                                    <button class="flex-1 bg-black text-white px-4 py-2 rounded-md hover:bg-gray-800 transition-colors text-sm">
+                                        Checkout
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ========== FIN COMPONENTE CARRITO ========== -->
+                
+                <button class="text-gray-600 hover:text-gray-900 transition-colors">
                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                     </svg>
@@ -35,60 +76,37 @@
 
     <main class="container mx-auto px-4 py-20">
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            <!-- Producto 1 -->
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                <img src="{% static 'img/herramienta-1.jpg' %}" alt="Herramienta Manual" class="w-full h-48 object-cover">
+            {% for producto in productos %}
+            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                <img src="{% static 'img/herramienta-1.jpg' %}" alt="{{ producto.nombre }}" class="w-full h-48 object-cover">
                 <div class="p-4">
-                    <p class="text-gray-600 text-sm mb-2">PRECIO: $123.000 - U$ 123.000</p>
-                    <h3 class="font-medium mb-2">NOMBRE: HERRAMIENTA UNO</h3>
-                    <p class="text-gray-600 text-sm mb-4">STOCK: 123 UNIDADES</p>
-                    <button class="w-full bg-black text-white py-2 px-4 rounded hover:bg-gray-800 transition-colors">
-                        Agregar al carro
+                    <h3 class="font-medium mb-2 text-gray-800">{{ producto.nombre }}</h3>
+                    <p class="text-gray-600 text-sm mb-2">{{ producto.descripcion }}</p>
+                    <p class="text-gray-600 text-sm mb-2">Categoría: {{ producto.categoria.nombre }}</p>
+                    <p class="text-gray-800 font-semibold text-sm mb-2">${{ producto.precio_final }}</p>
+                    <p class="text-gray-500 text-xs mb-3">Stock: {{ producto.stock }} unidades</p>
+                    <button 
+                        class="w-full bg-black text-white py-2 px-4 rounded-md hover:bg-gray-800 transition-colors add-to-cart-btn disabled:bg-gray-400 disabled:cursor-not-allowed"
+                        data-id="{{ producto.id }}"
+                        data-nombre="{{ producto.nombre }}"
+                        data-precio="{{ producto.precio_final }}"
+                        {% if producto.stock == 0 %}disabled{% endif %}
+                    >
+                        {% if producto.stock == 0 %}
+                            Sin Stock
+                        {% else %}
+                            Agregar al carro
+                        {% endif %}
                     </button>
                 </div>
             </div>
-
-            <!-- Producto 2 -->
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                <img src="{% static 'img/herramienta-2.jpg' %}" alt="Herramienta Manual" class="w-full h-48 object-cover">
-                <div class="p-4">
-                    <p class="text-gray-600 text-sm mb-2">PRECIO: $123.000 - U$ 123.000</p>
-                    <h3 class="font-medium mb-2">NOMBRE: HERRAMIENTA UNO</h3>
-                    <p class="text-gray-600 text-sm mb-4">STOCK: 123 UNIDADES</p>
-                    <button class="w-full bg-black text-white py-2 px-4 rounded hover:bg-gray-800 transition-colors">
-                        Agregar al carro
-                    </button>
-                </div>
-            </div>
-
-            <!-- Producto 3 -->
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                <img src="{% static 'img/herramienta-3.jpg' %}" alt="Herramienta Manual" class="w-full h-48 object-cover">
-                <div class="p-4">
-                    <p class="text-gray-600 text-sm mb-2">PRECIO: $123.000 - U$ 123.000</p>
-                    <h3 class="font-medium mb-2">NOMBRE: HERRAMIENTA UNO</h3>
-                    <p class="text-gray-600 text-sm mb-4">STOCK: 123 UNIDADES</p>
-                    <button class="w-full bg-black text-white py-2 px-4 rounded hover:bg-gray-800 transition-colors">
-                        Agregar al carro
-                    </button>
-                </div>
-            </div>
-
-            <!-- Producto 4 -->
-            <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                <img src="{% static 'img/herramienta-4.jpg' %}" alt="Herramienta Manual" class="w-full h-48 object-cover">
-                <div class="p-4">
-                    <p class="text-gray-600 text-sm mb-2">PRECIO: $123.000 - U$ 123.000</p>
-                    <h3 class="font-medium mb-2">NOMBRE: HERRAMIENTA UNO</h3>
-                    <p class="text-gray-600 text-sm mb-4">STOCK: 123 UNIDADES</p>
-                    <button class="w-full bg-black text-white py-2 px-4 rounded hover:bg-gray-800 transition-colors">
-                        Agregar al carro
-                    </button>
-                </div>
-            </div>
+            {% empty %}
+            <p class="col-span-4 text-center text-gray-500 py-8">No hay productos disponibles.</p>
+            {% endfor %}
         </div>
     </main>
 
     <script src="{% static 'js/main.js' %}"></script>
+    <script src="{% static 'js/cart.js' %}"></script>
 </body>
 </html>

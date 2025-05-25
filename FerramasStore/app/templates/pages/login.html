@@ -27,24 +27,23 @@
     </header>
 
     <!-- Formulario de inicio de sesión -->
-    <main class="flex-grow flex items-center justify-center bg-gray-50">
-        <form class="bg-white p-8 rounded-lg shadow-md w-full max-w-md space-y-6">
-            <h2 class="text-2xl font-bold mb-4 text-center">Iniciar Sesión</h2>
-            <div>
-                <label for="email" class="block text-gray-700 mb-1">Correo electrónico</label>
-                <input type="email" id="email" name="email" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black" placeholder="correo@ejemplo.com">
-            </div>
-            <div>
-                <label for="password" class="block text-gray-700 mb-1">Contraseña</label>
-                <input type="password" id="password" name="password" required class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black" placeholder="********">
-            </div>
-            <div class="flex items-center">
-                <input type="checkbox" id="remember" name="remember" class="mr-2">
-                <label for="remember" class="text-gray-700">Recordar contraseña</label>
-            </div>
-            <div class="flex flex-col space-y-2">
-                <button type="submit" class="bg-black text-white py-2 rounded hover:bg-gray-800 transition-colors">Iniciar sesión</button>
-                <button type="button" class="bg-gray-200 text-black py-2 rounded hover:bg-gray-300 transition-colors">Registrarse</button>
+    <main class="flex-grow flex items-center justify-center bg-white">
+        <form class="w-full max-w-md mx-auto mt-12">
+            <h2 class="text-4xl font-bold mb-10 text-left">Iniciar sesion</h2>
+            <div class="flex flex-col space-y-6">
+                <div>
+                    <label for="usuario" class="block text-black font-semibold mb-2 uppercase">Usuario</label>
+                    <input type="text" id="usuario" name="usuario" required class="w-full border-2 border-black rounded-none px-3 py-2 focus:outline-none" placeholder="">
+                </div>
+                <div>
+                    <label for="password" class="block text-black font-semibold mb-2 uppercase">Contraseña</label>
+                    <input type="password" id="password" name="password" required class="w-full border-2 border-black rounded-none px-3 py-2 focus:outline-none" placeholder="">
+                </div>
+                <button type="submit" class="bg-black text-white w-full py-2 font-bold text-base mt-2 mb-2">INGRESAR</button>
+                <div class="flex flex-col items-center mt-2">
+                    <hr class="w-2/3 border-black mb-1">
+                    <a href="/register/" class="text-xs text-black font-semibold tracking-wide mt-1">NO TENGO CUENTA?</a>
+                </div>
             </div>
         </form>
     </main>

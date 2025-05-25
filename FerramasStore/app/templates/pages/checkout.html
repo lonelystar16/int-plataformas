@@ -15,6 +15,11 @@
     <div class="flex w-full max-w-5xl bg-white rounded-lg shadow-lg p-8 gap-8">
         <!-- Carrito -->
         <div class="w-2/3">
+            {% if user.is_authenticated %}
+                <p class="text-lg font-bold mb-4">¡Hola, {{ user.first_name }}!
+                    <a href="{% url 'logout' %}" class="text-sm text-blue-600 hover:underline ml-2">Cerrar Sesión</a>
+                </p>
+            {% endif %}
             <h1 class="text-4xl font-bold mb-6">Mi compra :</h1>
             <div id="cart-items" class="space-y-6 max-h-[24rem] overflow-y-auto"></div>
         </div>
@@ -24,12 +29,32 @@
             <div class="bg-black text-white text-2xl font-bold rounded w-full text-center py-2 mb-4" id="total">$0</div>
             <div class="flex w-full gap-2 mb-4">
                 <button class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded w-1/2">Pagar con tarjeta</button>
-                <button class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded w-1/2">Pagar con transferencia</button>
+                <button id="transfer-button" class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded w-1/2">Pagar con transferencia</button>
             </div>
-            <button onclick="window.location.href='/login/'" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full border-2 border-blue-400 mb-2">iniciar sesion</button>
-            <p class="text-xs text-center mt-2 font-semibold">INICIA SESION PARA APLICAR DESCUENTO DE CLIENTE</p>
+            <!-- Sección de Datos de Transferencia (Oculta por defecto) -->
+            <div id="transfer-details" class="hidden w-full bg-blue-50 border border-blue-200 rounded-lg p-6 mb-4">
+                <div class="flex items-center mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-600 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4H21a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    <h4 class="text-lg font-semibold text-blue-800">Datos de Transferencia</h4>
+                </div>
+                <div class="text-gray-700 leading-relaxed">
+                    <p>Transferir a la siguiente cuenta bancaria:</p>
+                    <p><strong>Ferramas S.A.</strong></p>
+                    <p><strong>Rut: 98.765.432-1</strong></p>
+                    <p>Banco Estado</p>
+                    <p>Cuenta Corriente</p>
+                    <p>12-34567-8</p>
+                    <p><a href="mailto:pagos@ferramas.cl" class="text-blue-600 hover:underline">pagos@ferramas.cl</a></p>
+                    <p class="text-sm mt-2 italic">*Poner en la descripción el número del pedido*</p>
+                </div>
+            </div>
+            {% if not user.is_authenticated %}
+                <button onclick="window.location.href='/login/'" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full border-2 border-blue-400 mb-2">iniciar sesion</button>
+                <p class="text-xs text-center mt-2 font-semibold">INICIA SESION PARA APLICAR DESCUENTO DE CLIENTE</p>
+            {% endif %}
         </div>
     </div>
+
     <script>
         // Leer carrito desde localStorage (como objeto)
         const cart = JSON.parse(localStorage.getItem('cart')) || {};
@@ -54,7 +79,30 @@
                 total += item.precio * item.cantidad;
             });
         }
-        document.getElementById('total').innerHTML = `<strong>$${total.toLocaleString('es-CL')}</strong>`;
+
+        // Obtener el porcentaje de descuento del contexto de Django
+        const discountPercentage = parseFloat('{{ discount_percentage|default:0 }}');
+        let finalTotal = total;
+
+        // Aplicar descuento si existe
+        if (discountPercentage > 0) {
+            finalTotal = total * (1 - discountPercentage / 100);
+            // Opcional: Mostrar el total original y el descuento
+            document.getElementById('total').innerHTML = `
+                <span class="text-base line-through mr-2">$${total.toLocaleString('es-CL')}</span>
+                <span class="text-2xl font-bold">$${finalTotal.toLocaleString('es-CL')}</span>
+            `;
+        } else {
+             document.getElementById('total').innerHTML = `<strong>$${finalTotal.toLocaleString('es-CL')}</strong>`;
+        }
+
+        const transferButton = document.getElementById('transfer-button');
+        const transferDetails = document.getElementById('transfer-details');
+
+        transferButton.addEventListener('click', function() {
+            transferDetails.classList.toggle('hidden');
+        });
+
     </script>
 </body>
 </html> 

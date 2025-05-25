@@ -26,18 +26,35 @@
         </div>
     </header>
 
+    <!-- Mostrar mensajes de error -->
+    {% if messages %}
+      <ul>
+        {% for message in messages %}
+          <li class="text-red-600 text-center">{{ message }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+
     <!-- Formulario de inicio de sesión -->
     <main class="flex-grow flex items-center justify-center bg-white">
-        <form class="w-full max-w-md mx-auto mt-12">
+        <form method="post" class="w-full max-w-md mx-auto mt-12" data-usuario="{{ usuario|default:''|escapejs }}">
+            {% csrf_token %}
+            <input type="hidden" name="next" value="{{ next }}">
             <h2 class="text-4xl font-bold mb-10 text-left">Iniciar sesion</h2>
             <div class="flex flex-col space-y-6">
                 <div>
                     <label for="usuario" class="block text-black font-semibold mb-2 uppercase">Usuario</label>
-                    <input type="text" id="usuario" name="usuario" required class="w-full border-2 border-black rounded-none px-3 py-2 focus:outline-none" placeholder="">
+                    <input type="text" id="usuario" name="usuario" required class="w-full border-2 border-black rounded-none px-3 py-2 focus:outline-none" placeholder="" value="{{ usuario|default:'' }}">
                 </div>
                 <div>
                     <label for="password" class="block text-black font-semibold mb-2 uppercase">Contraseña</label>
-                    <input type="password" id="password" name="password" required class="w-full border-2 border-black rounded-none px-3 py-2 focus:outline-none" placeholder="">
+                    <div class="relative">
+                        <input type="password" id="password" name="password" required class="w-full border-2 border-black rounded-none px-3 py-2 pr-10 focus:outline-none" placeholder="">
+                        <button type="button" id="togglePassword" class="absolute inset-y-0 right-0 flex items-center px-3 focus:outline-none">
+                            <svg id="eyeIconOpen" class="h-5 w-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                            <svg id="eyeIconClosed" class="h-5 w-5 text-gray-500 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a10.07 10.07 0 012.24-3.653M15.955 14.045A10.05 10.05 0 0118 12c1.274-4.057 5.064-7 9.542-7C22.268 5 26.057 7.943 27.33 12c-1.273 4.057-5.063 7-9.541 7a10.07 10.07 0 01-4.125-.955zM4 4l16 16"></path></svg>
+                        </button>
+                    </div>
                 </div>
                 <button type="submit" class="bg-black text-white w-full py-2 font-bold text-base mt-2 mb-2">INGRESAR</button>
                 <div class="flex flex-col items-center mt-2">
@@ -47,5 +64,30 @@
             </div>
         </form>
     </main>
+
+    <script>
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+        const eyeIconOpen = document.getElementById('eyeIconOpen');
+        const eyeIconClosed = document.getElementById('eyeIconClosed');
+
+        togglePassword.addEventListener('click', function () {
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+
+            eyeIconOpen.classList.toggle('hidden');
+            eyeIconClosed.classList.toggle('hidden');
+        });
+
+        // Mantener el campo de usuario si hay error (desde Django context)
+        const usuarioInput = document.getElementById('usuario');
+
+        const formElement = document.querySelector('form');
+
+        if (formElement && formElement.dataset.usuario) {
+            usuarioInput.value = formElement.dataset.usuario;
+        }
+
+    </script>
 </body>
 </html>

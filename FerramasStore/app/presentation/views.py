@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets, permissions
-from app.domain.models import Producto, Categoria
-from app.presentation.serializers import ProductoSerializer, CategoriaSerializer
+from ..domain.models import Producto, Categoria
+from .serializers import ProductoSerializer, CategoriaSerializer
 
 def index(request):
     return render(request, 'pages/mainPage.html')

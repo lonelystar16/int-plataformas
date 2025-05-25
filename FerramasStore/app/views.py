@@ -24,6 +24,12 @@ def fijaciones(request):
 def equipos_medicion(request):
     return render(request, 'pages/equipos-medicion.html')
 
+def login(request):
+    return render(request, 'pages/login.html')
+
+def register(request):
+    return render(request, 'pages/register.html')
+
 class CategoriaViewSet(viewsets.ModelViewSet):
     queryset = Categoria.objects.all()
     permission_classes = [permissions.AllowAny]

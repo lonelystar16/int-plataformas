@@ -36,6 +36,8 @@ def login (request):
 def register (request):
     return render(request, 'pages/register.html')
 
+def checkout(request):
+    return render(request, 'pages/checkout.html')
 
 class CategoriaViewSet(viewsets.ModelViewSet):
     queryset = Categoria.objects.all()

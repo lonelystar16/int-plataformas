@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white min-h-screen flex items-center justify-center">
+    <button onclick="window.history.back()" class="absolute top-6 left-6 flex items-center text-gray-700 hover:text-black bg-gray-100 hover:bg-gray-200 rounded-full p-2 shadow transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+        </svg>
+        <span class="ml-1 text-sm font-medium">Volver</span>
+    </button>
+    <div class="flex w-full max-w-5xl bg-white rounded-lg shadow-lg p-8 gap-8">
+        <!-- Carrito -->
+        <div class="w-2/3">
+            <h1 class="text-4xl font-bold mb-6">Mi compra :</h1>
+            <div id="cart-items" class="space-y-6 max-h-[24rem] overflow-y-auto"></div>
+        </div>
+        <!-- Resumen y acciones -->
+        <div class="w-1/3 flex flex-col items-center">
+            <h3 class="text-sm font-semibold mb-2">TOTAL DE LA COMPRA</h3>
+            <div class="bg-black text-white text-2xl font-bold rounded w-full text-center py-2 mb-4" id="total">$0</div>
+            <div class="flex w-full gap-2 mb-4">
+                <button class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded w-1/2">Pagar con tarjeta</button>
+                <button class="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded w-1/2">Pagar con transferencia</button>
+            </div>
+            <button onclick="window.location.href='/login/'" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-full border-2 border-blue-400 mb-2">iniciar sesion</button>
+            <p class="text-xs text-center mt-2 font-semibold">INICIA SESION PARA APLICAR DESCUENTO DE CLIENTE</p>
+        </div>
+    </div>
+    <script>
+        // Leer carrito desde localStorage (como objeto)
+        const cart = JSON.parse(localStorage.getItem('cart')) || {};
+        const cartItemsDiv = document.getElementById('cart-items');
+        let total = 0;
+
+        const cartValues = Object.values(cart);
+        if(cartValues.length === 0) {
+            cartItemsDiv.innerHTML = '<p class="text-gray-500">El carrito está vacío.</p>';
+        } else {
+            Object.entries(cart).forEach(([id, item]) => {
+                cartItemsDiv.innerHTML += `
+                    <div class="flex items-center gap-4 border-b pb-4">
+                        <img src="https://via.placeholder.com/100" alt="Producto" class="w-24 h-24 object-cover rounded" />
+                        <div>
+                            <p class="font-semibold">Precio: $${item.precio.toLocaleString('es-CL')}</p>
+                            <p>Descripcion: ${item.nombre}</p>
+                            <p>Cantidad: ${item.cantidad}</p>
+                        </div>
+                    </div>
+                `;
+                total += item.precio * item.cantidad;
+            });
+        }
+        document.getElementById('total').innerHTML = `<strong>$${total.toLocaleString('es-CL')}</strong>`;
+    </script>
+</body>
+</html> 

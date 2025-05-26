@@ -1,26 +1,58 @@
+## Información General ♦️
+
+ - Ramo: Integración de Plataformas || ASY5131
+ - Sección: 004D
+ - Docente: Diego Patricio Cares Gonzales 🧑‍🏫
+ - Institución: Duoc UC
+
+## Integrantes
+- [Fernando Muñoz](https://www.github.com/lonelystar16)
+- [Martín Quiroga](https://github.com/trollynnn)
+- [Juan Candia](https://github.com/ObiJuanKenobi22)
+
 # FerramasStore
 
-Proyecto de plataforma web para la gestión y visualización de productos y categorías de una ferretería.
+FerramasStore es una plataforma web para la gestión y visualización de productos y categorías de una ferretería, con funcionalidades de carrito de compras, autenticación de usuarios y una API RESTful para integración y administración.
 
 ## Descripción
 
-Este proyecto utiliza Django y Django REST Framework para crear una API y un sitio web que permite visualizar y administrar productos y categorías. Incluye vistas para páginas informativas y endpoints para la gestión vía API.
+El proyecto está desarrollado con Django y Django REST Framework, permitiendo:
+- Visualización de productos por categorías.
+- Carrito de compras persistente en el navegador.
+- Registro e inicio de sesión de usuarios.
+- Panel de administración para gestionar productos, categorías y usuarios.
+- API RESTful para operaciones CRUD sobre productos y categorías.
+- Sistema de descuentos para usuarios autenticados.
+- Pop-up de suscripción a ofertas.
+- Diseño responsivo con Tailwind CSS.
 
-## Estructura
+## Estructura del Proyecto
 
-- **app.domain.models**: Modelos de Producto y Categoría.
-- **app.presentation.views**: Vistas para páginas web y API.
-- **app.presentation.serializers**: Serializadores para la API.
-- **app.urls**: Rutas del sitio y de la API.
-- **ferramas.urls**: Rutas principales del proyecto.
+- **app.domain.models**: Modelos de datos (`Producto`, `Categoria`, `Usuario`).
+- **app.presentation.views**: Vistas para páginas web y endpoints de la API.
+- **app.presentation.serializers**: Serializadores para la API REST.
+- **app.presentation.urls** y **app.urls**: Rutas del sitio y de la API.
+- **app/templates/pages/**: Templates HTML para las páginas del sitio.
+- **app/templates/components/**: Componentes reutilizables (ej. carrito).
+- **app/static/**: Archivos estáticos (CSS, JS, imágenes).
+- **ferramas/urls.py**: Rutas principales del proyecto.
 
 ## Recursos utilizados
 
-- Python 3.10+
-- Django 5.2.x
-- Django REST Framework
+- **Python 3.10+**
+- **Django 5.2.x**
+- **Django REST Framework**
+- **Tailwind CSS** (CDN)
+- **SQLite** (por defecto, fácilmente migrable a PostgreSQL/MySQL)
+- **HTML5, CSS3, JavaScript (ES6+)**
 
-## Instalación y ejecución en otro entorno
+## Requisitos para ejecutar el proyecto
+
+- Python 3.10 o superior
+- pip (gestor de paquetes de Python)
+- (Opcional) virtualenv para entornos virtuales
+
+## Instalación y ejecución
 
 1. **Clonar el repositorio**
    ```bash
@@ -31,7 +63,10 @@ Este proyecto utiliza Django y Django REST Framework para crear una API y un sit
 2. **Crear y activar un entorno virtual**
    ```bash
    python -m venv venv
-   source venv/bin/activate  # En Windows: venv\Scripts\activate
+   # En Windows:
+   venv\Scripts\activate
+   # En Mac/Linux:
+   source venv/bin/activate
    ```
 
 3. **Instalar dependencias**
@@ -44,7 +79,7 @@ Este proyecto utiliza Django y Django REST Framework para crear una API y un sit
    python manage.py migrate
    ```
 
-5. **Crear un superusuario (opcional)
+5. **Crear un superusuario (opcional)**
    ```bash
    python manage.py createsuperuser
    ```
@@ -59,10 +94,27 @@ Este proyecto utiliza Django y Django REST Framework para crear una API y un sit
    - API: [http://localhost:8000/api/](http://localhost:8000/api/)
    - Admin: [http://localhost:8000/admin/](http://localhost:8000/admin/)
 
-## Notas
+## Funcionalidades principales
 
-- Los templates HTML deben estar en `app/templates/pages/`.
-- Configura la variable `ALLOWED_HOSTS` en producción.
-- El archivo `settings.py` ya está configurado para español y zona horaria de Santiago.
+- **Catálogo de productos**: Visualización por categorías, stock, precios y descuentos.
+- **Carrito de compras**: Añadir, quitar y modificar productos, resumen y total.
+- **Autenticación**: Registro, inicio/cierre de sesión, descuentos para usuarios autenticados.
+- **Panel de administración**: Gestión de productos, categorías y usuarios.
+- **API RESTful**: Endpoints para productos y categorías, filtrado por categoría.
+- **Pop-up de suscripción**: Para recibir ofertas semanales por correo.
+- **Diseño responsivo**: Adaptado a dispositivos móviles y escritorio.
+
+## Notas y recomendaciones
+
+- Los templates HTML están en `app/templates/pages/` y los componentes reutilizables en `app/templates/components/`.
+- Configura la variable `ALLOWED_HOSTS` en producción en `settings.py`.
+- El idioma y zona horaria están configurados para Chile (`es-cl`, `America/Santiago`).
+- Puedes migrar fácilmente a otra base de datos editando la sección `DATABASES` en `settings.py`.
+- Para desarrollo, el modo `DEBUG` está activado. Desactívalo en producción.
+- El sistema de usuarios extiende el modelo de Django con el modelo `Usuario` para almacenar teléfono.
+
+## Créditos
+
+Desarrollado por el equipo de FerramasStore para la asignatura de Integración de Plataformas.
 
 ---

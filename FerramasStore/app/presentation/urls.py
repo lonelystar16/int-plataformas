@@ -1,6 +1,8 @@
 from django.urls import path, include
 from rest_framework import routers
 from FerramasStore.app.presentation import views
+from . import views
+from .dolar import DolarView
 
 router = routers.DefaultRouter()
 router.register(r'productos', views.ProductoViewSet)
@@ -19,4 +21,6 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     # Rutas de la API
     path('api/', include(router.urls)),
+    path('api/dolar/', DolarView.as_view(), name='dolar-view'),
+
 ]

@@ -1,6 +1,7 @@
 from django.urls import path, include
 from rest_framework import routers
 from app.presentation import views
+from app.presentation.dolar import DolarView
 
 router = routers.DefaultRouter()
 router.register(r'productos', views.ProductoViewSet)
@@ -21,4 +22,5 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     # Rutas de la API
     path('api/', include(router.urls)),
+    path('api/dolar/', DolarView.as_view(), name='api_dolar'),
 ]

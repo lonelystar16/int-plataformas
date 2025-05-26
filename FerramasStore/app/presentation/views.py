@@ -9,6 +9,10 @@ from app.domain.models import Usuario
 from django.views.decorators.http import require_POST
 from django.http import JsonResponse
 from django.urls import reverse
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from app.db.external_api import obtener_valor_dolar_actual
 
 def index(request):
     return render(request, 'pages/mainPage.html')
@@ -116,6 +120,15 @@ def checkout(request):
         'discount_percentage': discount_percentage,
         'user': request.user
     })
+
+
+class DolarAPIView(APIView):
+    def get(self, request):
+        resultado = obtener_valor_dolar_actual()
+        if resultado:
+            return Response(resultado)
+        return Response({"error": "No se pudo obtener el valor del dólar."},
+                        status=status.HTTP_503_SERVICE_UNAVAILABLE)
 
 def logout_view(request):
     logout(request)

@@ -21,4 +21,5 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     # Rutas de la API
     path('api/', include(router.urls)),
+    path('api/indicadores/', include('app.presentation.urls')),
 ]

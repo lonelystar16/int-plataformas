@@ -5,7 +5,6 @@ from FerramasStore.app.presentation import views
 router = routers.DefaultRouter()
 router.register(r'productos', views.ProductoViewSet)
 router.register(r'categorias', views.CategoriaViewSet)
-from .views import DolarAPIView
 
 urlpatterns = [
     # Rutas para las páginas del sitio web
@@ -20,5 +19,4 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     # Rutas de la API
     path('api/', include(router.urls)),
-    path('dolar/', DolarAPIView.as_view(), name='dolar-api'),
 ]

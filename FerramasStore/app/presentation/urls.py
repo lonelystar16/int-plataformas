@@ -3,6 +3,7 @@ from rest_framework import routers
 from FerramasStore.app.presentation import views
 from . import views
 from .dolar import DolarView
+from .mercadopago import MercadoPagoInitView
 
 router = routers.DefaultRouter()
 router.register(r'productos', views.ProductoViewSet)
@@ -22,5 +23,7 @@ urlpatterns = [
     # Rutas de la API
     path('api/', include(router.urls)),
     path('api/dolar/', DolarView.as_view(), name='dolar-view'),
+    path('api/mercadopago/init/', MercadoPagoInitView.as_view(), name='mercadopago-init'),
+
 
 ]

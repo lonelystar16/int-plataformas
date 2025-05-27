@@ -2,6 +2,7 @@ from django.urls import path, include
 from rest_framework import routers
 from app.presentation import views
 from app.presentation.dolar import DolarView
+from app.presentation.mercadopago import MercadoPagoInitView
 
 router = routers.DefaultRouter()
 router.register(r'productos', views.ProductoViewSet)
@@ -23,4 +24,5 @@ urlpatterns = [
     # Rutas de la API
     path('api/', include(router.urls)),
     path('api/dolar/', DolarView.as_view(), name='api_dolar'),
+    path('api/mercadopago/init/', MercadoPagoInitView.as_view(), name='mercadopago-init'),
 ]

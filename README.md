@@ -71,7 +71,7 @@ El proyecto está desarrollado con Django y Django REST Framework, permitiendo:
 
 3. **Instalar dependencias**
    ```bash
-   pip install django djangorestframework
+   pip install django djangorestframework mercadopago
    ```
 
 4. **Migrar la base de datos**

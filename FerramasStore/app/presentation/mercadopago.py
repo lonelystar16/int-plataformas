@@ -11,9 +11,9 @@ class MercadoPagoInitView(APIView):
 
     def post(self, request):
         sdk = mercadopago.SDK(ACCESS_TOKEN)
-        success_url = request.data.get("success_url") or "http://localhost:8000/mercadopago/success/"
-        failure_url = request.data.get("failure_url") or "http://localhost:8000/mercadopago/failure/"
-        pending_url = request.data.get("pending_url") or "http://localhost:8000/mercadopago/pending/"
+        success_url = request.data.get("success_url") or "https://echoapi.io/success"
+        failure_url = request.data.get("failure_url") or "https://echoapi.io/failure"
+        pending_url = request.data.get("pending_url") or "https://echoapi.io/pending"
         preference_data = {
             "items": [
                 {

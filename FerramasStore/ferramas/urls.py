@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import handler404
 from django.shortcuts import render
+from rest_framework.authtoken.views import obtain_auth_token
 
 def custom_404_view(request, exception):
     return render(request, '404.html', status=404)
@@ -28,4 +29,5 @@ handler404 = custom_404_view
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("app.urls")),
+    path('api/token/', obtain_auth_token, name='api_token_auth'),
 ]

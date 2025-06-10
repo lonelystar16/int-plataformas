@@ -1,0 +1,40 @@
+### Obtener token de autenticación
+POST http://localhost:8000/api/token/
+Content-Type: application/json
+
+{
+  "username": "nano",
+  "password": "nadanuevo123"
+}
+
+### Obtener productos (requiere token en el header)
+GET http://localhost:8000/api/productos/
+Authorization: 97ff9aa8366b1d5595d1152c8e76485ab0f12801
+
+### Obtener categorías (requiere token en el header)
+GET http://localhost:8000/api/categorias/
+Authorization: 97ff9aa8366b1d5595d1152c8e76485ab0f12801
+
+
+### Crear nuevo producto
+POST http://localhost:8000/api/productos/
+Content-Type: application/json
+Authorization: 97ff9aa8366b1d5595d1152c8e76485ab0f12801
+
+
+{
+  "nombre": "Martillo de prueba",
+  "descripcion": "Martillo para pruebas API",
+  "precio": 8900.00,
+  "categoria": 1,
+  "stock": 100,
+  "en_venta": true,
+  "sku": "MART-PRUEBA-001",
+  "destacado": false,
+  "descuento": 0.00
+}
+
+
+### Solicitud mediante ip local
+GET http://192.168.18.164:3000/api/productos/
+Authorization: 97ff9aa8366b1d5595d1152c8e76485ab0f12801

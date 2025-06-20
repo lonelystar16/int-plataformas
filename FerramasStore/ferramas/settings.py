@@ -145,6 +145,7 @@ ALLOWED_HOSTS = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://192.168.18.164:3000",
+    "https://lonelystar16.github.io",
 ]
 
 CORS_ALLOW_HEADERS = list(default_headers) + [

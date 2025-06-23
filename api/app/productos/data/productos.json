@@ -1,0 +1,17 @@
+[
+    {
+        "nombre": "Taladro Inalámbrico",
+        "descripcion": "Taladro eléctrico con batería recargable de 20V",
+        "precio": 39990.0,
+        "stock": 15,
+        "en_venta": true,
+        "sku": "TLDR-2025",
+        "destacado": true,
+        "descuento": 10,
+        "id": 1,
+        "categoria": null,
+        "fecha_creacion": "2025-06-23T03:04:47.346986",
+        "fecha_actualizacion": "2025-06-23T03:04:47.346986",
+        "precio_final": 35991.0
+    }
+]

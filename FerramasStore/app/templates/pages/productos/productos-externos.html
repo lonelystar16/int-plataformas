@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Productos Externos</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <h1 class="text-shadow">Productos desde API externa</h1>
+    <ul>
+        {% for producto in productos %}
+            <li class="hover-scale" style="margin-bottom: 1.5em; border: 1px solid #e5e7eb; border-radius: 8px; padding: 1em; background: #fafafa;">
+                <ul style="list-style: none; padding: 0; margin: 0;">
+                    <li><strong>Nombre:</strong> {{ producto.nombre }}</li>
+                    <li><strong>Precio:</strong> ${{ producto.precio }}</li>
+                    <li><strong>Descripción:</strong> {{ producto.descripcion }}</li>
+                    <li><strong>Stock:</strong> {{ producto.stock }}</li>
+                </ul>
+            </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

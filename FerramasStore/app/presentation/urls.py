@@ -1,9 +1,11 @@
 from django.urls import path, include
 from rest_framework import routers
 from FerramasStore.app.presentation import views
-from . import views
-from .dolar import DolarView
-from .mercadopago import MercadoPagoInitView
+from app.presentation import views
+from app.presentation.views import CrearPagoExternoView
+from app.presentation.views import productos_externos_page
+from app.presentation.views import valor_dolar_page
+# Configuración del enrutador de Django REST Framework
 
 router = routers.DefaultRouter()
 router.register(r'productos', views.ProductoViewSet)
@@ -18,12 +20,11 @@ urlpatterns = [
     path('tornillos-anclaje/', views.tornillos_anclaje, name='tornillos_anclaje'),
     path('fijaciones/', views.fijaciones, name='fijaciones'),
     path('equipos-medicion/', views.equipos_medicion, name='equipos_medicion'),
-    path('login/', views.login, name='login'),
+    path('login/', views.login_view, name='login'),
     path('register/', views.register, name='register'),
     # Rutas de la API
     path('api/', include(router.urls)),
-    path('api/dolar/', DolarView.as_view(), name='dolar-view'),
-    path('api/mercadopago/init/', MercadoPagoInitView.as_view(), name='mercadopago-init'),
-
-
+    path('api/crear-pago-externo/', CrearPagoExternoView.as_view(), name='crear_pago_externo'),
+    path('productos-externos/', productos_externos_page.as_view(), name='productos_externos'),
+    path('valor-dolar/', valor_dolar_page, name='obtener_valor_dolar'),
 ]

@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Crear Pago</title>
+  <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white min-h-screen flex items-center justify-center relative">
+
+  <!-- Overlay de carga -->
+  <div id="loading-overlay" class="hidden absolute inset-0 bg-black bg-opacity-50 flex flex-col items-center justify-center z-50">
+    <div class="w-12 h-12 border-4 border-white border-t-transparent rounded-full animate-spin mb-4"></div>
+    <p class="text-white text-lg font-semibold">Redireccionando...</p>
+  </div>
+
+  <!-- Contenido principal -->
+  <div class="bg-white rounded-lg shadow-lg p-8 max-w-md w-full text-center relative z-10">
+    <h1 class="text-3xl font-bold mb-6 text-gray-900 text-shadow">Crear pago con Mercado Pago</h1>
+
+    <form method="post" class="space-y-4" id="pago-form">
+      {% csrf_token %}
+      <div class="text-left">
+        <label class="block font-semibold mb-1" for="title">Producto:</label>
+        <input type="text" id="title" name="title" value="Producto de prueba"
+               class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black" required>
+      </div>
+      <div class="text-left">
+        <label class="block font-semibold mb-1" for="quantity">Cantidad:</label>
+        <input type="number" id="quantity" name="quantity" value="1" min="1"
+               class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black" required>
+      </div>
+      <div class="text-left">
+        <label class="block font-semibold mb-1" for="unit_price">Precio unitario:</label>
+        <input type="number" id="unit_price" name="unit_price" value="1000" min="1"
+               class="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-black" required>
+      </div>
+      <button id="submit-btn" type="submit"
+              class="w-full bg-black text-white py-2 rounded hover:bg-gray-800 transition-colors font-semibold">
+        Generar Link de Pago
+      </button>
+    </form>
+
+    {% if error %}
+      <p class="text-red-600 font-semibold mt-4">Error: {{ error }}</p>
+    {% endif %}
+    <a href="{% url 'index' %}" class="inline-block mt-8 bg-black text-white px-6 py-2 rounded hover:bg-gray-800 transition-colors text-sm font-semibold">Volver al inicio</a>
+  </div>
+
+  {% if init_point %}
+    <script>
+      const initPoint = "{{ init_point }}";
+    </script>
+    <script src="{% static 'js/pago_redirect.js' %}"></script>
+  {% endif %}
+</body>
+</html>

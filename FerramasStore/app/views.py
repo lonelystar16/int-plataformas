@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework import viewsets, permissions
 from app.domain.models import Producto, Categoria
 from app.presentation.serializers import ProductoSerializer, CategoriaSerializer
-
+from app.domain.services.api_externa import obtener_productos, obtener_valor_dolar
 def index(request):
     return render(request, 'pages/mainPage.html')
 
@@ -29,6 +29,28 @@ def login(request):
 
 def register(request):
     return render(request, 'pages/register.html')
+
+def productos_externos(request):
+    try:
+        productos = obtener_productos()
+    except Exception as e:
+        productos = []
+    return render(request, 'pages/productos/productos_externos.html', {'productos': productos})
+
+def valor_dolar_page(request):
+    try:
+        data = obtener_valor_dolar()
+        return render(request, 'pages/valor_dolar.html', {
+            'valor': data['valor'],
+            'fecha': data['fecha'],
+            'error': None
+        })
+    except Exception as e:
+        return render(request, 'pages/valor_dolar.html', {
+            'valor': None,
+            'fecha': None,
+            'error': str(e)
+        })
 
 class CategoriaViewSet(viewsets.ModelViewSet):
     queryset = Categoria.objects.all()

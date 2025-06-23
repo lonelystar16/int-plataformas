@@ -140,6 +140,7 @@ REST_FRAMEWORK = {
 ALLOWED_HOSTS = [
     'localhost',
     '192.168.18.164',
+    '127.0.0.1',
 ]
 
 CORS_ALLOWED_ORIGINS = [

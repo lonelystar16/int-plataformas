@@ -26,6 +26,10 @@ El proyecto está desarrollado con Django y Django REST Framework, permitiendo:
 - Pop-up de suscripción a ofertas.
 - Diseño responsivo con Tailwind CSS.
 
+**Externalización de APIs:**  
+Las funcionalidades relacionadas con productos, el valor del dólar (Banco Central de Chile) y Mercado Pago han sido externalizadas y funcionan mediante servidores independientes desarrollados con FASTAPI.  
+Estas APIs externas son consumidas desde Django para integrar información adicional y mantener una arquitectura desacoplada y escalable.
+
 ## Estructura del Proyecto
 
 - **app.domain.models**: Modelos de datos (`Producto`, `Categoria`, `Usuario`).
@@ -45,12 +49,18 @@ El proyecto está desarrollado con Django y Django REST Framework, permitiendo:
 - **Tailwind CSS** (CDN)
 - **SQLite** (por defecto, fácilmente migrable a PostgreSQL/MySQL)
 - **HTML5, CSS3, JavaScript (ES6+)**
+- **FASTAPI** (para las APIs externalizadas)
+- **Uvicorn** (servidor ASGI para FASTAPI)
+- **requests** (para consumo de APIs externas desde Django)
+- **mercadopago** (SDK para integración de pagos)
 
 ## Requisitos para ejecutar el proyecto
 
 - Python 3.10 o superior
 - pip (gestor de paquetes de Python)
 - (Opcional) virtualenv para entornos virtuales
+- **FASTAPI** y **Uvicorn** para levantar los servicios externalizados
+- **requests** (instalar con `pip install requests`)
 
 ## Instalación y ejecución
 
@@ -71,7 +81,7 @@ El proyecto está desarrollado con Django y Django REST Framework, permitiendo:
 
 3. **Instalar dependencias**
    ```bash
-   pip install django djangorestframework mercadopago
+   pip install django djangorestframework mercadopago requests fastapi uvicorn
    ```
 
 4. **Migrar la base de datos**
@@ -85,8 +95,16 @@ El proyecto está desarrollado con Django y Django REST Framework, permitiendo:
    ```
 
 6. **Ejecutar el servidor**
+   
+   **Servidor Django**
    ```bash
    python manage.py runserver
+   ```
+   # En terminal separada
+   **Servidor FastAPI**
+   ```bash
+   cd api
+   python run.py
    ```
 
 7. **Acceder a la aplicación**
@@ -96,12 +114,14 @@ El proyecto está desarrollado con Django y Django REST Framework, permitiendo:
 
 ## Funcionalidades principales
 
-- **Catálogo de productos**: Visualización por categorías, stock, precios y descuentos.
+- **Catálogo de productos**: Visualización por categorías, stock, precios y descuentos. Los productos pueden provenir tanto de la base de datos local como de una API externa (FASTAPI).
 - **Carrito de compras**: Añadir, quitar y modificar productos, resumen y total.
 - **Autenticación**: Registro, inicio/cierre de sesión, descuentos para usuarios autenticados.
 - **Panel de administración**: Gestión de productos, categorías y usuarios.
 - **API RESTful**: Endpoints para productos y categorías, filtrado por categoría.
 - **Pop-up de suscripción**: Para recibir ofertas semanales por correo.
+- **Integración con Mercado Pago**: Pagos gestionados a través de una API externalizada.
+- **Consulta del valor del dólar**: Consumo de la API del Banco Central de Chile externalizada vía FASTAPI.
 - **Diseño responsivo**: Adaptado a dispositivos móviles y escritorio.
 
 ## Notas y recomendaciones

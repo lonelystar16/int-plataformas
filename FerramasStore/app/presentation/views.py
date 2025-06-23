@@ -1,14 +1,20 @@
-from django.shortcuts import render, redirect
-from rest_framework import viewsets, permissions
+
+# FerramasStore/app/presentation/views.py
 from ..domain.models import Producto, Categoria
 from .serializers import ProductoSerializer, CategoriaSerializer
+# Django imports
+from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
-from app.domain.models import Usuario
-from django.views.decorators.http import require_POST
-from django.http import JsonResponse
-from django.urls import reverse
+from django.views.decorators.csrf import csrf_exempt
+# Django REST Framework imports
+from rest_framework import viewsets, permissions
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+# External API services
+from app.domain.services.api_externa import obtener_valor_dolar,obtener_productos,crear_preferencia_pago
 
 def index(request):
     return render(request, 'pages/mainPage.html')
@@ -122,6 +128,63 @@ def logout_view(request):
     # Puedes redirigir a la página principal, login, o donde prefieras
     return redirect('index')
 
+def productos_externos_page(request):
+    try:
+        productos = obtener_productos()
+        
+    except Exception as e:
+        productos = []
+    return render(request, 'pages/productos/productos-externos.html', {'productos': productos})
+
+def valor_dolar_page(request):
+    try:
+        data = obtener_valor_dolar()
+        return render(request, 'pages/banco_central/valor-dolar.html', {
+            'valor': data['valor'],
+            'fecha': data['fecha'],
+            'error': None
+        })
+    except Exception as e:
+        return render(request, 'pages/banco_central/valor-dolar.html', {
+            'valor': None,
+            'fecha': None,
+            'error': str(e)
+        })
+
+@csrf_exempt
+def crear_pago_page(request):
+    init_point = None
+    error = None
+
+    if request.method == "POST":
+        try:
+            data = {
+                "title": request.POST.get("title"),
+                "quantity": int(request.POST.get("quantity")),
+                "unit_price": float(request.POST.get("unit_price")),
+                "success_url": "https://echoapi.io/success",
+                "failure_url": "https://echoapi.io/failure",
+                "pending_url": "https://echoapi.io/pending"
+            }
+            resultado = crear_preferencia_pago(data)
+            init_point = resultado.get("init_point")
+        except Exception as e:
+            error = str(e)
+
+    return render(request, 'pages/mercado_pago/crear_pago.html', {
+        "init_point": init_point,
+        "error": error
+    })
+
+
+
+
+
+
+
+
+
+
 class CategoriaViewSet(viewsets.ModelViewSet):
     queryset = Categoria.objects.all()
     permission_classes = [permissions.AllowAny]
@@ -131,4 +194,21 @@ class ProductoViewSet(viewsets.ModelViewSet):
     queryset = Producto.objects.all()
     permission_classes = [permissions.AllowAny]
     serializer_class = ProductoSerializer
+
+class CrearPagoExternoView(APIView):
+    def post(self, request):
+        try:
+            data = {
+                "title": request.data.get("title", "Producto de prueba"),
+                "quantity": int(request.data.get("quantity", 1)),
+                "unit_price": float(request.data.get("unit_price", 1000)),
+                "success_url": request.data.get("success_url", "https://echoapi.io/success"),
+                "failure_url": request.data.get("failure_url", "https://echoapi.io/failure"),
+                "pending_url": request.data.get("pending_url", "https://echoapi.io/pending"),
+            }
+            resultado = crear_preferencia_pago(data)
+            return Response(resultado)
+        except Exception as e:
+            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
 

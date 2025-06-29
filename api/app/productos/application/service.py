@@ -1,4 +1,4 @@
-from app.productos.domain.schemas import Producto
+from app.productos.domain.schemas import ProductoOut
 from app.productos.infrastructure import repository
 from datetime import datetime
 from app.productos.domain.schemas import ProductoCreate, Producto

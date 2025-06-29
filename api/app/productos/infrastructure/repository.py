@@ -1,39 +1,50 @@
-import datetime
-
-import json
-import os
-from typing import List
-from app.productos.domain.schemas import Producto
-
-DATA_PATH = os.path.join(os.path.dirname(__file__), '..', 'data', 'productos.json')
-
-def default_serializer(obj):
-    if isinstance(obj, (datetime.date, datetime.datetime)):
-        return obj.isoformat()
-    raise TypeError(f"Type {type(obj)} not serializable")
+# Importar las dependencias necesarias
+from sqlalchemy.orm import Session
+from app.productos.domain.models_sql import ProductoDB,CategoriaDB
 
 
 
 
+# Funciones para manejar categorías
+def crear_categoria(db: Session, categoria_data: dict):
+    nueva_categoria = CategoriaDB(**categoria_data)
+    db.add(nueva_categoria)
+    db.commit()
+    db.refresh(nueva_categoria)
+    return nueva_categoria
 
-def cargar_productos() -> List[Producto]:
-    try:
-        with open(DATA_PATH, 'r', encoding='utf-8') as f:
-            data = json.load(f)
-            return [Producto(**item) for item in data]
-    except FileNotFoundError:
-        return []
-    except json.JSONDecodeError:
-        return []
+def obtener_categoria(db: Session, categoria_id: int):
+    return db.query(CategoriaDB).all()
 
-def guardar_producto(producto: Producto) -> None:
-    productos = cargar_productos()
-    productos.append(producto)
-    with open(DATA_PATH, 'w', encoding='utf-8') as f:
-        json.dump(
-    [p.model_dump() for p in productos],
-    f,
-    indent=4,
-    ensure_ascii=False,
-    default=default_serializer
-)
+def crear_producto(db: Session, producto_data: dict):
+    # Verificar si la categoría existe
+    categoria = db.query(CategoriaDB).filter(CategoriaDB.id == producto_data["categoria_id"]).first()
+
+    if not categoria:
+        raise ValueError("La categoría no existe.")
+
+    # Crear el nuevo producto
+    nuevo_producto = ProductoDB(**producto_data)
+    nuevo_producto.categoria_id = categoria.id
+    db.add(nuevo_producto)
+    db.commit()
+    db.refresh(nuevo_producto)
+
+    # Devolver el producto creado con la categoría asociada
+    return nuevo_producto
+
+
+
+def obtener_categorias(db: Session):
+    return db.query(CategoriaDB).all()
+
+# ----- 
+# Funciones para manejar productos
+def obtener_productos(db: Session):
+    return db.query(ProductoDB).all()
+
+def guardar_producto(db: Session, producto: ProductoDB):
+    db.add(producto)
+    db.commit()
+    db.refresh(producto)
+    return producto

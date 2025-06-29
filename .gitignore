@@ -14,3 +14,23 @@ Thumbs.db
 
 # Archivos de logs
 *.log
+
+# Archivos de configuración de entorno
+.env
+*.env
+
+# Archivos de bases de datos locales
+db.sqlite3
+
+# Archivos de migraciones de Django (opcional, si no quieres versionarlas)
+# */migrations/*.py
+# */migrations/*.pyc
+
+# Archivos de VSCode y otros editores
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Archivos de node/npm (si usas npm para frontend)
+node_modules/

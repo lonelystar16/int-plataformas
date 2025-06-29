@@ -1,7 +1,17 @@
 from pydantic import BaseModel
 from typing import Optional
-from datetime import datetime
 
+class CategoriaIn(BaseModel):
+    nombre: str
+    descripcion: Optional[str] = None  # Campo opcional para la descripción
+
+class CategoriaOut(BaseModel):
+    id: int
+    nombre: str
+    descripcion: Optional[str] = None  # Campo opcional para la descripción
+
+    class Config:
+        from_attributes = True
 
 class ProductoCreate(BaseModel):
     nombre: str
@@ -12,19 +22,12 @@ class ProductoCreate(BaseModel):
     sku: str
     destacado: bool
     descuento: int
+    categoria_id: int  # Aquí recibimos el id de la categoría
 
-
-
-
-
-class Producto(ProductoCreate):
+class ProductoOut(ProductoCreate):
     id: int
-    categoria: Optional[str] = None
-    fecha_creacion: datetime
-    fecha_actualizacion: datetime
-    precio_final: float
-    
+    categoria: CategoriaOut  # Incluimos la categoría asociada
+
     class Config:
-        json_encoders = {
-            datetime: lambda v: v.isoformat()
-        }
+        from_attributes = True
+        exclude = {"categoria_id"}

@@ -39,3 +39,10 @@ class Producto(models.Model):
         if self.descuento:
             return round(self.precio * (1 - self.descuento / 100), 2)
         return self.precio
+
+class Subscriber(models.Model):
+    email = models.EmailField(unique=True)
+    subscribed_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.email

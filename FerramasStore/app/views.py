@@ -7,22 +7,112 @@ def index(request):
     return render(request, 'pages/mainPage.html')
 
 def herra_manuales(request):
-    return render(request, 'pages/herra-manuales.html')
+    try:
+        categoria = Categoria.objects.filter(nombre='Herramientas Manuales').first()
+        if not categoria:
+            return render(request, 'pages/herra-manuales.html', {
+                'productos': [],
+                'error': 'Categoría "Herramientas Manuales" no encontrada'
+            })
+        
+        productos = Producto.objects.filter(categoria=categoria, en_venta=True)
+        return render(request, 'pages/herra-manuales.html', {'productos': productos})
+    
+    except Exception as e:
+        return render(request, 'pages/herra-manuales.html', {
+            'productos': [],
+            'error': f'Error al cargar productos: {str(e)}'
+        })
 
 def materiales_basicos(request):
-    return render(request, 'pages/materiales-basicos.html')
+    try:
+        categoria = Categoria.objects.filter(nombre='Materiales Básicos').first()
+        if not categoria:
+            return render(request, 'pages/materiales-basicos.html', {
+                'productos': [],
+                'error': 'Categoría "Materiales Básicos" no encontrada'
+            })
+        
+        productos = Producto.objects.filter(categoria=categoria, en_venta=True)
+        return render(request, 'pages/materiales-basicos.html', {'productos': productos})
+    
+    except Exception as e:
+        return render(request, 'pages/materiales-basicos.html', {
+            'productos': [],
+            'error': f'Error al cargar productos: {str(e)}'
+        })
 
 def equipos_seguridad(request):
-    return render(request, 'pages/equipos-seguridad.html')
+    try:
+        categoria = Categoria.objects.filter(nombre='Equipos de Seguridad').first()
+        if not categoria:
+            return render(request, 'pages/equipos-seguridad.html', {
+                'productos': [],
+                'error': 'Categoría "Equipos de Seguridad" no encontrada'
+            })
+        
+        productos = Producto.objects.filter(categoria=categoria, en_venta=True)
+        return render(request, 'pages/equipos-seguridad.html', {'productos': productos})
+    
+    except Exception as e:
+        return render(request, 'pages/equipos-seguridad.html', {
+            'productos': [],
+            'error': f'Error al cargar productos: {str(e)}'
+        })
 
 def tornillos_anclaje(request):
-    return render(request, 'pages/tornillos-anclaje.html')
+    try:
+        categoria = Categoria.objects.filter(nombre='Tornillos y Anclajes').first()
+        if not categoria:
+            return render(request, 'pages/tornillos-anclaje.html', {
+                'productos': [],
+                'error': 'Categoría "Tornillos y Anclajes" no encontrada'
+            })
+        
+        productos = Producto.objects.filter(categoria=categoria, en_venta=True)
+        return render(request, 'pages/tornillos-anclaje.html', {'productos': productos})
+    
+    except Exception as e:
+        return render(request, 'pages/tornillos-anclaje.html', {
+            'productos': [],
+            'error': f'Error al cargar productos: {str(e)}'
+        })
 
 def fijaciones(request):
-    return render(request, 'pages/fijaciones.html')
+    try:
+        categoria = Categoria.objects.filter(nombre='Fijaciones').first()
+        if not categoria:
+            return render(request, 'pages/fijaciones.html', {
+                'productos': [],
+                'error': 'Categoría "Fijaciones" no encontrada'
+            })
+        
+        productos = Producto.objects.filter(categoria=categoria, en_venta=True)
+        return render(request, 'pages/fijaciones.html', {'productos': productos})
+    
+    except Exception as e:
+        return render(request, 'pages/fijaciones.html', {
+            'productos': [],
+            'error': f'Error al cargar productos: {str(e)}'
+        })
 
 def equipos_medicion(request):
-    return render(request, 'pages/equipos-medicion.html')
+    try:
+        categoria = Categoria.objects.filter(nombre='Equipos de Medición').first()
+        if not categoria:
+            return render(request, 'pages/equipos-medicion.html', {
+                'productos': [],
+                'error': 'Categoría "Equipos de Medición" no encontrada'
+            })
+        
+        productos = Producto.objects.filter(categoria=categoria, en_venta=True)
+        return render(request, 'pages/equipos-medicion.html', {'productos': productos})
+    
+    except Exception as e:
+        return render(request, 'pages/equipos-medicion.html', {
+            'productos': [],
+            'error': f'Error al cargar productos: {str(e)}'
+        })
 
 def login(request):
     return render(request, 'pages/login.html')

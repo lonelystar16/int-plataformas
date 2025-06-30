@@ -29,16 +29,49 @@
     </header>
 
     <main class="container mx-auto px-4 py-20">
+        {% if error %}
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-6">
+            <p>{{ error }}</p>
+        </div>
+        {% endif %}
+
         <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {% for producto in productos %}
-            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow {% if producto.stock == 0 %}opacity-75{% endif %}">
                 <img src="{% static 'img/herramienta-1.jpg' %}" alt="{{ producto.nombre }}" class="w-full h-48 object-cover">
                 <div class="p-4">
                     <h3 class="font-medium mb-2 text-gray-800">{{ producto.nombre }}</h3>
                     <p class="text-gray-600 text-sm mb-2">{{ producto.descripcion }}</p>
                     <p class="text-gray-600 text-sm mb-2">Categoría: {{ producto.categoria.nombre }}</p>
-                    <p class="text-gray-800 font-semibold text-sm mb-2">${{ producto.precio_final }}</p>
-                    <p class="text-gray-500 text-xs mb-3">Stock: {{ producto.stock }} unidades</p>
+                    
+                    <!-- Precio con descuento -->
+                    <div class="mb-2">
+                        {% if producto.descuento > 0 %}
+                            <span class="text-gray-400 text-sm line-through">${{ producto.precio }}</span>
+                            <span class="text-green-600 font-semibold text-lg ml-2">${{ producto.precio_final }}</span>
+                            <span class="bg-red-500 text-white text-xs px-2 py-1 rounded ml-2">{{ producto.descuento }}% OFF</span>
+                        {% else %}
+                            <span class="text-gray-800 font-semibold text-lg">${{ producto.precio_final }}</span>
+                        {% endif %}
+                    </div>
+                    
+                    <p class="text-gray-500 text-xs mb-2">Stock: 
+                        {% if producto.stock == 0 %}
+                            <span class="text-red-500 font-semibold">{{ producto.stock }} unidades</span>
+                        {% else %}
+                            {{ producto.stock }} unidades
+                        {% endif %}
+                    </p>
+                    {% if producto.sku %}
+                    <p class="text-gray-500 text-xs mb-2">SKU: {{ producto.sku }}</p>
+                    {% endif %}
+                    
+                    <!-- Badge de destacado -->
+                    {% if producto.destacado %}
+                    <div class="mb-3">
+                        <span class="bg-yellow-400 text-yellow-900 text-xs px-2 py-1 rounded">⭐ DESTACADO</span>
+                    </div>
+                    {% endif %}
                     <button 
                         class="w-full bg-black text-white py-2 px-4 rounded-md hover:bg-gray-800 transition-colors add-to-cart-btn disabled:bg-gray-400 disabled:cursor-not-allowed"
                         data-id="{{ producto.id }}"
@@ -55,7 +88,14 @@
                 </div>
             </div>
             {% empty %}
-            <p class="col-span-4 text-center text-gray-500 py-8">No hay productos disponibles.</p>
+            {% if not error %}
+            <div class="col-span-4 text-center py-8">
+                <p class="text-gray-500 text-lg mb-4">No hay productos disponibles en esta categoría.</p>
+                <a href="{% url 'index' %}" class="text-blue-600 hover:text-blue-800 underline">
+                    Volver al inicio
+                </a>
+            </div>
+            {% endif %}
             {% endfor %}
         </div>
     </main>

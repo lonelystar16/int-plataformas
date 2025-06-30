@@ -13,35 +13,61 @@ from rest_framework import viewsets, permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+# Clean Architecture imports
+from app.application.use_cases.producto_use_cases import GetProductosPorCategoriaUseCase
+from app.infrastructure.repositories.producto_repository import DjangoProductoRepository, DjangoCategoriaRepository
 # External API services
-from app.domain.services.api_externa import obtener_valor_dolar,obtener_productos,crear_preferencia_pago
+from app.infrastructure.external_services.api_externa import obtener_valor_dolar, obtener_productos, crear_preferencia_pago
+
+# Dependency injection
+producto_repository = DjangoProductoRepository()
+categoria_repository = DjangoCategoriaRepository()
+get_productos_por_categoria_use_case = GetProductosPorCategoriaUseCase(producto_repository, categoria_repository)
 
 def index(request):
     return render(request, 'pages/mainPage.html')
 
 def herra_manuales(request):
-    productos = Producto.objects.filter(categoria__nombre="Herramientas Manuales", en_venta=True)
-    return render(request, 'pages/herra-manuales.html', {'productos': productos})
+    productos, error = get_productos_por_categoria_use_case.execute("Herramientas Manuales")
+    context = {'productos': productos}
+    if error:
+        context['error'] = error
+    return render(request, 'pages/herra-manuales.html', context)
 
 def materiales_basicos(request):
-    productos = Producto.objects.filter(categoria__nombre="Materiales Básicos", en_venta=True)
-    return render(request, 'pages/materiales-basicos.html', {'productos': productos})
+    productos, error = get_productos_por_categoria_use_case.execute("Materiales Básicos")
+    context = {'productos': productos}
+    if error:
+        context['error'] = error
+    return render(request, 'pages/materiales-basicos.html', context)
 
 def equipos_seguridad(request):
-    productos = Producto.objects.filter(categoria__nombre="Equipos Seguridad", en_venta=True)
-    return render(request, 'pages/equipos-seguridad.html', {'productos': productos})
+    productos, error = get_productos_por_categoria_use_case.execute("Equipos de Seguridad")
+    context = {'productos': productos}
+    if error:
+        context['error'] = error
+    return render(request, 'pages/equipos-seguridad.html', context)
 
 def tornillos_anclaje(request):
-    productos = Producto.objects.filter(categoria__nombre="Tornillos y Anclajes", en_venta=True)
-    return render(request, 'pages/tornillos-anclaje.html', {'productos': productos})
+    productos, error = get_productos_por_categoria_use_case.execute("Tornillos y Anclajes")
+    context = {'productos': productos}
+    if error:
+        context['error'] = error
+    return render(request, 'pages/tornillos-anclaje.html', context)
 
 def fijaciones(request):
-    productos = Producto.objects.filter(categoria__nombre="Fijaciones y Adhesivos", en_venta=True)
-    return render(request, 'pages/fijaciones.html', {'productos': productos})
+    productos, error = get_productos_por_categoria_use_case.execute("Fijaciones")
+    context = {'productos': productos}
+    if error:
+        context['error'] = error
+    return render(request, 'pages/fijaciones.html', context)
 
 def equipos_medicion(request):
-    productos = Producto.objects.filter(categoria__nombre="Equipos de Medición", en_venta=True)
-    return render(request, 'pages/equipos-medicion.html', {'productos': productos})
+    productos, error = get_productos_por_categoria_use_case.execute("Equipos de Medición")
+    context = {'productos': productos}
+    if error:
+        context['error'] = error
+    return render(request, 'pages/equipos-medicion.html', context)
 
 def login_view(request):
     next_url = request.GET.get('next') or request.POST.get('next') or '/checkout/'

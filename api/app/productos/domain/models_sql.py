@@ -1,5 +1,6 @@
-from sqlalchemy import Column, Integer, String, Float, Boolean, ForeignKey
+from sqlalchemy import Column, Integer, String, Float, Boolean, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
+from sqlalchemy.sql import func
 from app.core.database import Base
 
 class CategoriaDB(Base):
@@ -22,6 +23,7 @@ class ProductoDB(Base):
     sku = Column(String)
     destacado = Column(Boolean)
     descuento = Column(Integer)
-    
+    fecha_creacion = Column(DateTime, default=func.now(), nullable=False)
+    fecha_actualizacion = Column(DateTime, default=func.now(), onupdate=func.now(), nullable=False)
     categoria_id = Column(Integer, ForeignKey("app_categoria.id"))
     categoria = relationship("CategoriaDB", back_populates="productos")

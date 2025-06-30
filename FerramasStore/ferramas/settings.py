@@ -76,11 +76,10 @@ WSGI_APPLICATION = 'ferramas.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-# En settings.py de Django
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(os.path.dirname(os.path.abspath(__file__)), 'api', 'db.sqlite3'),
+        'NAME': BASE_DIR.parent / 'api' / 'db.sqlite3',
     }
 }
 

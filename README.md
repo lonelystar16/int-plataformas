@@ -104,7 +104,7 @@ Estas APIs externas son consumidas desde Django para integrar información adici
    **Servidor FastAPI**
    ```bash
    cd api
-   python run.py
+   uvicorn run:app --reload --port 8001
    ```
 
 7. **Acceder a la aplicación**

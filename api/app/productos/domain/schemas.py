@@ -3,12 +3,12 @@ from typing import Optional
 
 class CategoriaIn(BaseModel):
     nombre: str
-    descripcion: Optional[str] = None  # Campo opcional para la descripción
+    descripcion: Optional[str] = None  
 
 class CategoriaOut(BaseModel):
     id: int
     nombre: str
-    descripcion: Optional[str] = None  # Campo opcional para la descripción
+    descripcion: Optional[str] = None  
 
     class Config:
         from_attributes = True
@@ -22,12 +22,12 @@ class ProductoCreate(BaseModel):
     sku: str
     destacado: bool
     descuento: int
-    categoria_id: int  # Aquí recibimos el id de la categoría
+    categoria_id: int 
 
 class ProductoOut(ProductoCreate):
     id: int
-    categoria: CategoriaOut  # Incluimos la categoría asociada
+    categoria: Optional[CategoriaOut] = None
+    categoria_id: Optional[int] = None
 
     class Config:
         from_attributes = True
-        exclude = {"categoria_id"}

@@ -34,3 +34,119 @@ db.sqlite3
 
 # Archivos de node/npm (si usas npm para frontend)
 node_modules/
+
+# ================================
+# ARCHIVOS DE PRUEBAS Y REPORTES
+# ================================
+
+# Reportes de pruebas generados automáticamente
+reports/
+test_session_*/
+*.html
+*.xml
+report.html
+report.xml
+test_output.txt
+
+# Screenshots de Selenium
+screenshots/
+*.png
+*.jpg
+*.jpeg
+
+# Archivos de caché de pytest
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Archivos temporales de pruebas
+temp_test_data/
+test_uploads/
+test_downloads/
+
+# Logs de Selenium y navegadores
+geckodriver.log
+chromedriver.log
+selenium-*.log
+
+# ================================
+# ARCHIVOS TEMPORALES Y SISTEMA
+# ================================
+
+# Archivos temporales
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# Archivos de respaldo
+*.bak
+*.backup
+*.orig
+
+# Archivos comprimidos temporales
+*.zip
+*.tar.gz
+*.rar
+
+# ================================
+# DEPENDENCIAS Y HERRAMIENTAS
+# ================================
+
+# Pip
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Coverage reports
+.coverage.*
+coverage.xml
+*.cover
+.hypothesis/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# PyCharm
+.idea/
+
+# Spyder
+.spyderproject
+.spyproject
+
+# Rope
+.ropeproject
+
+# mkdocs documentation
+/site
+
+# mypy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# ================================
+# ARCHIVOS ESPECÍFICOS DEL PROYECTO
+# ================================
+
+# Archivos de configuración locales que no deben versionarse
+local_settings.py
+settings_local.py
+
+# Archivos de datos de prueba generados
+test_data_generated/
+mock_data/
+
+# Archivos de instalación de herramientas
+chromedriver.exe
+geckodriver.exe
+msedgedriver.exe
+
+# Archivos de diagnóstico
+diagnostico_*.py
+instalar_*.bat
+
+# Archivos de scripts temporales de limpieza
+cleanup_*.py
+temp_*.py

@@ -81,7 +81,7 @@ Estas APIs externas son consumidas desde Django para integrar información adici
 
 3. **Instalar dependencias**
    ```bash
-   pip install django djangorestframework mercadopago requests fastapi uvicorn
+   pip install django djangorestframework mercadopago requests fastapi uvicorn selenium pytest pytest-html
    ```
 
 4. **Migrar la base de datos**
@@ -123,6 +123,39 @@ Estas APIs externas son consumidas desde Django para integrar información adici
 - **Integración con Mercado Pago**: Pagos gestionados a través de una API externalizada.
 - **Consulta del valor del dólar**: Consumo de la API del Banco Central de Chile externalizada vía FASTAPI.
 - **Diseño responsivo**: Adaptado a dispositivos móviles y escritorio.
+
+## Información de Pruebas 🧪
+
+### Tipos de Pruebas Implementadas
+- **Health Check y Documentación**: Verificación de conectividad de API, disponibilidad de documentación automática (Swagger UI, ReDoc, OpenAPI JSON).
+- **CRUD de Productos y Categorías**: Listar, crear, y eliminar productos y categorías con validaciones y manejo de errores.
+- **Servicios Externos**: Integración con APIs del Banco Central y Mercado Pago, validación de estructura de respuesta y manejo de errores de conectividad.
+- **Performance**: Tiempo de respuesta, requests concurrentes y pruebas de estrés.
+- **Manejo de Errores**: Endpoints inexistentes, métodos no permitidos, y JSON malformado.
+
+### Herramientas y Tecnologías Utilizadas
+- **Selenium WebDriver**: Automatización del navegador.
+- **Pytest**: Framework de pruebas.
+- **pytest-html**: Generación de reportes HTML interactivos.
+- **Page Object Model**: Patrón de diseño para pruebas.
+- **Pytest Fixtures**: Setup y teardown automático.
+
+### Arquitectura de Pruebas
+- **Base Test Class**: Configuración reutilizable para pruebas.
+- **HTML Reports**: Reportes visuales con capturas de pantalla.
+
+### Endpoints Probados
+- **Banco Central**: `/banco-central/valor-dolar` (GET) - Obtener valor del dólar.
+- **Mercado Pago**: `/mercado-pago/crear-pago` (POST) - Crear preferencia de pago.
+- **Documentación API**: `/docs` (Swagger UI), `/redoc` (ReDoc), `/openapi.json` (Esquema OpenAPI).
+
+### Estructura de Archivos de Pruebas
+- **Configuración**:
+  - `requirements-test.txt`: Dependencias para pruebas.
+  - `pytest.ini`: Configuración de Pytest.
+- **Reportes**:
+  - `reports/`: Carpeta con reportes de pruebas en HTML y XML.
+  - `test_session_*/`: Reportes generados por sesiones de prueba.
 
 ## Notas y recomendaciones
 

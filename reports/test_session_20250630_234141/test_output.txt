@@ -1,0 +1,23 @@
+============================= test session starts =============================
+platform win32 -- Python 3.13.3, pytest-7.4.3, pluggy-1.6.0
+rootdir: C:\Users\ferna\OneDrive\Documentos\repos\int-plataformas
+configfile: pytest.ini
+plugins: anyio-4.9.0, html-4.1.1, metadata-3.1.1, xdist-3.3.1
+collected 26 items
+
+tests\test_authentication.py .......                                     [ 26%]
+tests\test_basic.py ...                                                  [ 38%]
+tests\test_navigation.py ......                                          [ 61%]
+tests\test_shopping_cart.py ..........                                   [100%]
+
+============================== warnings summary ===============================
+tests\utils\test_helpers.py:14
+  C:\Users\ferna\OneDrive\Documentos\repos\int-plataformas\tests\utils\test_helpers.py:14: PytestCollectionWarning: cannot collect test class 'TestHelpers' because it has a __init__ constructor (from: tests/test_authentication.py)
+    class TestHelpers:
+
+tests\utils\test_helpers.py:14
+  C:\Users\ferna\OneDrive\Documentos\repos\int-plataformas\tests\utils\test_helpers.py:14: PytestCollectionWarning: cannot collect test class 'TestHelpers' because it has a __init__ constructor (from: tests/utils/test_helpers.py)
+    class TestHelpers:
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+================= 26 passed, 2 warnings in 339.81s (0:05:39) ==================

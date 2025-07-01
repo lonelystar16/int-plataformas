@@ -1,0 +1,56 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reportes de Pruebas - FerramasStore</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background-color: #f5f5f5; }
+        .container { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h1 { color: #333; border-bottom: 3px solid #007bff; padding-bottom: 10px; }
+        .report-item { margin: 15px 0; padding: 15px; background: #f8f9fa; border-left: 4px solid #007bff; }
+        .report-item h3 { margin: 0 0 10px 0; color: #007bff; }
+        .report-item a { color: #0056b3; text-decoration: none; font-weight: bold; }
+        .report-item a:hover { text-decoration: underline; }
+        .timestamp { color: #666; font-size: 14px; }
+        .summary { background: #e3f2fd; padding: 15px; border-radius: 4px; margin: 20px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📊 Reportes de Pruebas - FerramasStore</h1>
+        
+        <div class="summary">
+            <h3>📋 Resumen de la Sesión</h3>
+            <p><strong>Fecha:</strong> 2025-06-30 23:58:38</p>
+            <p><strong>Reportes generados:</strong> 3</p>
+            <p><strong>Directorio:</strong> test_session_20250630_234141</p>
+        </div>
+        
+        <h2>🔗 Reportes Disponibles</h2>
+
+        <div class="report-item">
+            <h3>Reporte HTML completo</h3>
+            <p><a href="report.html" target="_blank">🔗 Abrir report.html</a></p>
+            <p class="timestamp">Tamaño: 86 KB</p>
+        </div>
+
+        <div class="report-item">
+            <h3>Reporte XML (JUnit)</h3>
+            <p><a href="report.xml" target="_blank">🔗 Abrir report.xml</a></p>
+            <p class="timestamp">Tamaño: 3 KB</p>
+        </div>
+
+        <div class="report-item">
+            <h3>Log completo de ejecución</h3>
+            <p><a href="test_output.txt" target="_blank">🔗 Abrir test_output.txt</a></p>
+            <p class="timestamp">Tamaño: 1 KB</p>
+        </div>
+
+        <div style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #ddd; color: #666; font-size: 14px;">
+            <p>🤖 Reportes generados automáticamente por el sistema de pruebas de FerramasStore</p>
+        </div>
+    </div>
+</body>
+</html>

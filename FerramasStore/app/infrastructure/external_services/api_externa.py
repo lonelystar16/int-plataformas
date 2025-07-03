@@ -16,7 +16,7 @@ def obtener_productos():
     return response.json()
 
 def obtener_valor_dolar():
-    url = "http://127.0.0.1:8001/banco-central/"
+    url = "http://127.0.0.1:8001/banco-central/valor-dolar"
     response = requests.get(url)
     response.raise_for_status()
     return response.json()

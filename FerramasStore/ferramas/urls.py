@@ -28,6 +28,6 @@ handler404 = custom_404_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include("app.urls")),
+    path('', include("app.urls", namespace='app')),
     path('api/token/', obtain_auth_token, name='api_token_auth'),
 ]

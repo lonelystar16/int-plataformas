@@ -4,6 +4,9 @@
  * Versión: 1.0.0
  */
 
+// Verificación inmediata de que el script se está ejecutando
+window.cartScriptLoaded = true;
+
 class ShoppingCart {
   constructor(options = {}) {
     // Configuración por defecto
@@ -44,7 +47,6 @@ class ShoppingCart {
     this.bindElements()
     this.setupEventListeners()
     this.updateDisplay()
-    console.log("🛒 Shopping Cart Component initialized")
   }
 
   /**
@@ -56,14 +58,26 @@ class ShoppingCart {
     this.elements.cartSummary = document.getElementById("cart-summary")
     this.elements.cartItems = document.getElementById("cart-items")
     this.elements.cartTotal = document.getElementById("cart-total")
+    
+    // Elementos de botones del carrito
+    this.elements.btnCloseCart = document.getElementById("btn-close-cart")
+    this.elements.btnClearCart = document.getElementById("btn-clear-cart")
+    this.elements.btnCheckout = document.getElementById("btn-checkout")
 
-    // Verificar que todos los elementos existan
-    const missingElements = Object.entries(this.elements)
-      .filter(([key, element]) => !element)
-      .map(([key]) => key)
+    // Verificar que todos los elementos principales existan
+    const requiredElements = ['cartBtn', 'cartCount', 'cartSummary', 'cartItems', 'cartTotal']
+    const missingRequired = requiredElements.filter(key => !this.elements[key])
 
-    if (missingElements.length > 0) {
-      console.warn("⚠️ Missing cart elements:", missingElements)
+    if (missingRequired.length > 0) {
+      console.warn("⚠️ Missing required cart elements:", missingRequired)
+    }
+
+    // Verificar elementos opcionales de botones
+    const buttonElements = ['btnCloseCart', 'btnClearCart', 'btnCheckout']
+    const missingButtons = buttonElements.filter(key => !this.elements[key])
+    
+    if (missingButtons.length > 0) {
+      console.warn("⚠️ Missing cart button elements:", missingButtons)
     }
   }
 
@@ -76,6 +90,24 @@ class ShoppingCart {
       this.elements.cartBtn.addEventListener("click", (e) => {
         e.stopPropagation()
         this.toggle()
+      })
+    }
+
+    // Event listener para cerrar carrito
+    if (this.elements.btnCloseCart) {
+      this.elements.btnCloseCart.addEventListener("click", () => this.close())
+    }
+
+    // Event listener para vaciar carrito
+    if (this.elements.btnClearCart) {
+      this.elements.btnClearCart.addEventListener("click", () => this.clear())
+    }
+
+    // Event listener para checkout
+    if (this.elements.btnCheckout) {
+      this.elements.btnCheckout.addEventListener("click", (e) => {
+        e.preventDefault()
+        window.location.href = '/checkout/'
       })
     }
 
@@ -438,6 +470,20 @@ class ShoppingCart {
       this.dispatchEvent("checkoutRequested", cartData)
     }
   }
+
+  /**
+   * Función de debug para probar el checkout manualmente
+   */
+  debugCheckout() {
+    console.log('🛒 Debug: Probando checkout...')
+    console.log('🛒 Botón checkout:', this.elements.btnCheckout)
+    if (this.elements.btnCheckout) {
+      console.log('🛒 Redirigiendo a checkout...')
+      window.location.href = '/checkout/'
+    } else {
+      console.error('🛒 Error: Botón checkout no encontrado')
+    }
+  }
 }
 
 // Funciones globales para compatibilidad con el HTML existente
@@ -459,8 +505,54 @@ function removeFromCart(id) {
   }
 }
 
+// Exponer funciones globalmente
+window.closeCart = closeCart
+window.clearCart = clearCart
+window.removeFromCart = removeFromCart
+
+// Función de debug para probar checkout
+function debugCheckout() {
+  if (window.cart) {
+    window.cart.debugCheckout()
+  } else {
+    console.error('🛒 Error: Carrito no inicializado')
+  }
+}
+
+// Exponer función de debug globalmente
+window.debugCheckout = debugCheckout
+
 // Inicializar carrito automáticamente y exponerlo globalmente
-window.cart = new ShoppingCart()
+// Asegurarse de que el DOM esté listo antes de inicializar
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", () => {
+    window.cart = new ShoppingCart()
+  })
+} else {
+  window.cart = new ShoppingCart()
+}
 
 // Exponer la clase para uso avanzado
 window.ShoppingCart = ShoppingCart
+
+// Función simple para verificar estado (disponible globalmente)
+window.verificarCarrito = function() {
+  console.log('🛒 Estado del carrito:', {
+    carritoExiste: !!window.cart,
+    scriptCargado: !!window.cartScriptLoaded,
+    claseDisponible: typeof window.ShoppingCart,
+    elementosEncontrados: window.cart ? {
+      cartBtn: !!window.cart.elements.cartBtn,
+      btnCheckout: !!window.cart.elements.btnCheckout
+    } : 'Carrito no existe'
+  })
+  
+  // Intentar encontrar manualmente el botón de checkout
+  const btn = document.getElementById('btn-checkout')
+  console.log('🛒 Botón checkout en DOM:', btn)
+  
+  return {
+    cart: window.cart,
+    button: btn
+  }
+}

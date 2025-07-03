@@ -11,7 +11,7 @@
         <div class="p-4">
             <div class="flex justify-between items-center mb-3">
                 <h2 class="text-lg font-bold text-gray-800">{{ cart_title|default:"Carrito de Compras" }}</h2>
-                <button onclick="closeCart()" class="text-gray-400 hover:text-gray-600 transition-colors">
+                <button id="btn-close-cart" class="text-gray-400 hover:text-gray-600 transition-colors">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                     </svg>
@@ -29,10 +29,10 @@
                 </div>
                 
                 <div class="flex space-x-2">
-                    <button onclick="clearCart()" class="flex-1 bg-gray-100 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-200 transition-colors text-sm">
+                    <button id="btn-clear-cart" class="flex-1 bg-gray-100 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-200 transition-colors text-sm">
                         {{ clear_text|default:"Vaciar" }}
                     </button>
-                    <button onclick="window.location.href='/checkout/'" class="flex-1 bg-black text-white px-4 py-2 rounded-md hover:bg-gray-800 transition-colors text-sm">
+                    <button id="btn-checkout" class="flex-1 bg-black text-white px-4 py-2 rounded-md hover:bg-gray-800 transition-colors text-sm">
                         {{ checkout_text|default:"Checkout" }}
                     </button>
                 </div>

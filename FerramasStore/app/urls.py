@@ -2,30 +2,46 @@ from django.urls import path, include
 from rest_framework import routers
 from app.presentation import views
 from app.presentation.views import CrearPagoExternoView
-from app.presentation.views import productos_externos_page, valor_dolar_page, crear_pago_page
+from app.presentation.views import productos_externos_page, valor_dolar_page, crear_pago_page, procesar_pago, voucher_view
+
+# Configuración del namespace de la app
+app_name = 'app'
 
 router = routers.DefaultRouter()
 router.register(r'productos', views.ProductoViewSet)
 router.register(r'categorias', views.CategoriaViewSet)
 
 urlpatterns = [
-    # Rutas para las páginas del sitio web
+    # Página principal
     path('', views.index, name='index'),
-    path('herra-manuales/', views.herra_manuales, name='herra_manuales'),
-    path('materiales-basicos/', views.materiales_basicos, name='materiales_basicos'),
-    path('equipos-seguridad/', views.equipos_seguridad, name='equipos_seguridad'),
-    path('tornillos-anclaje/', views.tornillos_anclaje, name='tornillos_anclaje'),
-    path('fijaciones/', views.fijaciones, name='fijaciones'),
-    path('equipos-medicion/', views.equipos_medicion, name='equipos_medicion'),
-    path('login/', views.login_view, name='login'),
-    path('register/', views.register, name='register'),
+    
+    # Rutas de productos por categoría
+    path('productos/herramientas-manuales/', views.herra_manuales, name='herra_manuales'),
+    path('productos/materiales-basicos/', views.materiales_basicos, name='materiales_basicos'),
+    path('productos/equipos-seguridad/', views.equipos_seguridad, name='equipos_seguridad'),
+    path('productos/tornillos-anclaje/', views.tornillos_anclaje, name='tornillos_anclaje'),
+    path('productos/fijaciones/', views.fijaciones, name='fijaciones'),
+    path('productos/equipos-medicion/', views.equipos_medicion, name='equipos_medicion'),
+    
+    # Rutas de autenticación
+    path('auth/login/', views.login_view, name='login'),
+    path('auth/register/', views.register, name='register'),
+    path('auth/logout/', views.logout_view, name='logout'),
+    
+    # Rutas de compra
     path('checkout/', views.checkout, name='checkout'),
-    path('logout/', views.logout_view, name='logout'),
-    # Rutas de la API
+    
+    # Rutas de API REST
     path('api/', include(router.urls)),
-    path('crear-pago-externo/', CrearPagoExternoView.as_view(), name='crear_pago_externo'),
-    # Rutas para las páginas de productos externos y valor del dólar
-    path('productos-externos/', productos_externos_page, name='productos_externos_page'),
-    path('valor-dolar/', valor_dolar_page, name='valor_dolar_page'),
-    path('crear-pago/', crear_pago_page, name='crear_pago_page'),
+    
+    # Rutas de servicios externos
+    path('externos/productos/', productos_externos_page, name='productos_externos_page'),
+    path('externos/valor-dolar/', valor_dolar_page, name='valor_dolar_page'),
+    
+    # Rutas de pagos
+    path('pagos/crear-pago-externo/', CrearPagoExternoView.as_view(), name='crear_pago_externo'),
+    path('pagos/crear/', crear_pago_page, name='crear_pago_page'),
+    path('pagos/procesar/', procesar_pago, name='procesar_pago'),
+    path('pagos/voucher/', voucher_view, name='voucher'),
+    path('pagos/voucher/<str:token>/', voucher_view, name='voucher_token'),
 ]

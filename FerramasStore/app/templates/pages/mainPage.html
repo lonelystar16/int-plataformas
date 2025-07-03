@@ -21,16 +21,18 @@
 
             <!-- Lado derecho: Descripción, Botones y Redes Sociales -->
             <div class="w-full md:w-1/2">
-                 <!-- Botones de Login y Registro o Mensaje de Bienvenida -->
-                 <div class="flex justify-end gap-4 mb-4 items-center">
-                     {% if user.is_authenticated %}
-                         <p class="text-lg font-bold">¡Hola, {{ user.first_name|default:user.username }}!</p>
-                         <a href="{% url 'logout' %}" class="text-sm text-gray-600 hover:underline">Cerrar Sesión</a>
-                     {% else %}
-                         <a href="{% url 'login' %}?next={{ request.path }}" class="bg-gray-200 text-gray-800 py-2 px-4 rounded hover:bg-gray-300 text-sm font-semibold">Iniciar Sesión</a>
-                         <a href="{% url 'register' %}?next={{ request.path }}" class="bg-black text-white py-2 px-4 rounded hover:bg-gray-800 text-sm font-semibold">Registrarse</a>
-                     {% endif %}
-                 </div>
+                <!-- Botones de Login y Registro o Mensaje de Bienvenida -->
+                <div class="flex justify-end gap-4 mb-4 items-center">
+                    {% if user.is_authenticated %}
+                        <p class="text-lg font-bold">¡Hola, {{ user.first_name|default:user.username }}!</p>
+                        <a href="{% url 'app:logout' %}" class="text-sm text-gray-600 hover:underline">Cerrar Sesión</a>
+                    {% else %}
+                        <a href="{% url 'app:login' %}?next={{ request.path }}" class="bg-gray-200 text-gray-800 py-2 px-4 rounded hover:bg-gray-300 text-sm font-semibold">Iniciar Sesión</a>
+                        <a href="{% url 'app:register' %}?next={{ request.path }}" class="bg-black text-white py-2 px-4 rounded hover:bg-gray-800 text-sm font-semibold">Registrarse</a>
+                    {% endif %}
+                    <!-- Carrito de compras -->
+                    {% include 'components/cart.html' %}
+                </div>
 
                 <!-- Descripción -->
                 <p class="text-gray-600">Somos un pequeño centro de distribución con nuestra nueva plataforma web</p>
@@ -39,22 +41,22 @@
                 <div class="mt-24">
                     <!-- Categorías -->
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-                        <a href="{% url 'herra_manuales' %}" class="bg-black text-white py-2 px-4 rounded hover:bg-gray-800 text-sm text-center">
+                        <a href="{% url 'app:herra_manuales' %}" class="bg-black text-white py-2 px-4 rounded hover:bg-gray-800 text-sm text-center">
                             Herra - Manuales
                         </a>
-                        <a href="{% url 'materiales_basicos' %}" class="bg-black text-white py-2 px-4 rounded hover:bg-gray-800 text-sm text-center">
+                        <a href="{% url 'app:materiales_basicos' %}" class="bg-black text-white py-2 px-4 rounded hover:bg-gray-800 text-sm text-center">
                             Materiales Basicos
                         </a>
-                        <a href="{% url 'equipos_seguridad' %}" class="bg-black text-white py-2 px-4 rounded hover:bg-gray-800 text-sm text-center">
+                        <a href="{% url 'app:equipos_seguridad' %}" class="bg-black text-white py-2 px-4 rounded hover:bg-gray-800 text-sm text-center">
                             Equipos Seguridad
                         </a>
-                        <a href="{% url 'tornillos_anclaje' %}" class="bg-black text-white py-2 px-4 rounded hover:bg-gray-800 text-sm text-center">
+                        <a href="{% url 'app:tornillos_anclaje' %}" class="bg-black text-white py-2 px-4 rounded hover:bg-gray-800 text-sm text-center">
                             Tornillos - Anclaje
                         </a>
-                        <a href="{% url 'fijaciones' %}" class="bg-black text-white py-2 px-4 rounded hover:bg-gray-800 text-sm text-center">
+                        <a href="{% url 'app:fijaciones' %}" class="bg-black text-white py-2 px-4 rounded hover:bg-gray-800 text-sm text-center">
                             Fijaciones
                         </a>
-                        <a href="{% url 'equipos_medicion' %}" class="bg-black text-white py-2 px-4 rounded hover:bg-gray-800 text-sm text-center">
+                        <a href="{% url 'app:equipos_medicion' %}" class="bg-black text-white py-2 px-4 rounded hover:bg-gray-800 text-sm text-center">
                             Equipos Medición
                         </a>
                     </div>
@@ -89,13 +91,6 @@
                             </a>
                         </div>
                     </div>
-
-                    <!-- Sección de Suscripción -->
-                    
-
-                    <!-- Enlace a Iniciar Sesión -->
-                    
-
                 </div>
             </div>
         </div>
@@ -127,7 +122,7 @@
             <!-- Opción para Iniciar Sesión -->
             <div class="mt-6 text-center">
                  <p class="text-sm text-gray-700 mb-2">¿Ya tienes cuenta?</p>
-                <a href="{% url 'login' %}?next={{ request.path }}" class="text-blue-600 hover:underline font-semibold">Iniciar Sesión</a>
+                <a href="{% url 'app:login' %}?next={{ request.path }}" class="text-blue-600 hover:underline font-semibold">Iniciar Sesión</a>
             </div>
         </div>
     </div>
@@ -135,5 +130,6 @@
 
     <script src="{% static 'js/main.js' %}"></script>
     <script src="{% static 'js/subscriptionPopup.js' %}"></script>
+    <script src="{% static 'js/cart.js' %}"></script>
 </body>
 </html>

@@ -111,17 +111,19 @@ Estas APIs externas son consumidas desde Django para integrar información adici
    - Sitio web: [http://localhost:8000/](http://localhost:8000/)
    - API: [http://localhost:8000/api/](http://localhost:8000/api/)
    - Admin: [http://localhost:8000/admin/](http://localhost:8000/admin/)
+   - Productos: [http://localhost:8000/productos/](http://localhost:8000/productos/)
+   - Autenticación: [http://localhost:8000/auth/login/](http://localhost:8000/auth/login/)
 
 ## Funcionalidades principales
 
-- **Catálogo de productos**: Visualización por categorías, stock, precios y descuentos. Los productos pueden provenir tanto de la base de datos local como de una API externa (FASTAPI).
+- **Catálogo de productos**: Visualización por categorías organizadas bajo `/productos/`, stock, precios y descuentos. Los productos pueden provenir tanto de la base de datos local como de una API externa (FASTAPI).
 - **Carrito de compras**: Añadir, quitar y modificar productos, resumen y total.
-- **Autenticación**: Registro, inicio/cierre de sesión, descuentos para usuarios autenticados.
+- **Autenticación**: Registro, inicio/cierre de sesión bajo `/auth/`, descuentos para usuarios autenticados.
 - **Panel de administración**: Gestión de productos, categorías y usuarios.
 - **API RESTful**: Endpoints para productos y categorías, filtrado por categoría.
 - **Pop-up de suscripción**: Para recibir ofertas semanales por correo.
-- **Integración con Mercado Pago**: Pagos gestionados a través de una API externalizada.
-- **Consulta del valor del dólar**: Consumo de la API del Banco Central de Chile externalizada vía FASTAPI.
+- **Integración con Mercado Pago**: Pagos gestionados a través de una API externalizada bajo `/pagos/`.
+- **Consulta del valor del dólar**: Consumo de la API del Banco Central de Chile externalizada vía FASTAPI bajo `/externos/`.
 - **Diseño responsivo**: Adaptado a dispositivos móviles y escritorio.
 
 ## Información de Pruebas 🧪

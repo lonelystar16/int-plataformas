@@ -29,12 +29,12 @@ class TestNavigation(BaseTest):
     def test_navigate_to_all_categories(self):
         """Probar navegación a todas las categorías"""
         categories = [
-            ('herramientas', 'herra-manuales', 'Herramientas Manuales'),
-            ('materiales', 'materiales-basicos', 'Materiales Básicos'),
-            ('seguridad', 'equipos-seguridad', 'Equipos Seguridad'),
-            ('tornillos', 'tornillos-anclaje', 'Tornillos y Anclajes'),
-            ('fijaciones', 'fijaciones', 'Fijaciones'),
-            ('medicion', 'equipos-medicion', 'Equipos de Medición')
+            ('herramientas', 'productos/herramientas-manuales', 'Herramientas Manuales'),
+            ('materiales', 'productos/materiales-basicos', 'Materiales Básicos'),
+            ('seguridad', 'productos/equipos-seguridad', 'Equipos Seguridad'),
+            ('tornillos', 'productos/tornillos-anclaje', 'Tornillos y Anclajes'),
+            ('fijaciones', 'productos/fijaciones', 'Fijaciones'),
+            ('medicion', 'productos/equipos-medicion', 'Equipos de Medición')
         ]
         
         main_page = MainPage(self.driver)

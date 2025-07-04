@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models.signals import post_save
-from django.dispatch import receiver
+# from django.db.models.signals import post_save
+# from django.dispatch import receiver
 import uuid
 
 class Usuario(models.Model):
@@ -11,15 +11,22 @@ class Usuario(models.Model):
     def __str__(self):
         return self.user.username
 
-@receiver(post_save, sender=User)
-def create_usuario_profile(sender, instance, created, **kwargs):
-    if created:
-        Usuario.objects.create(user=instance)
+# Comentamos los signals por ahora para evitar problemas
+# @receiver(post_save, sender=User)
+# def create_usuario_profile(sender, instance, created, **kwargs):
+#     if created:
+#         # Usar get_or_create para evitar duplicados
+#         Usuario.objects.get_or_create(user=instance)
 
-@receiver(post_save, sender=User)
-def save_usuario_profile(sender, instance, **kwargs):
-    if hasattr(instance, 'usuario'):
-        instance.usuario.save()
+# @receiver(post_save, sender=User)
+# def save_usuario_profile(sender, instance, **kwargs):
+#     # Solo guardar si ya existe el perfil
+#     try:
+#         if hasattr(instance, 'usuario'):
+#             instance.usuario.save()
+#     except Usuario.DoesNotExist:
+#         # Si no existe el perfil, crearlo
+#         Usuario.objects.get_or_create(user=instance)
 
 class Categoria(models.Model):
     nombre = models.CharField(max_length=100, unique=True)

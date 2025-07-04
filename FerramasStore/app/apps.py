@@ -6,4 +6,6 @@ class AppConfig(AppConfig):
     name = 'app'
 
     def ready(self):
-        import app.domain.signals
+        # Comentamos la importación de signals para evitar conflictos
+        # import app.domain.signals
+        pass

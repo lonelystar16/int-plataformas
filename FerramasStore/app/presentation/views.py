@@ -1,5 +1,5 @@
 # FerramasStore/app/presentation/views.py
-from ..domain.models import Producto, Categoria
+from ..domain.models import Producto, Categoria, Usuario
 from .serializers import ProductoSerializer, CategoriaSerializer
 # Django imports
 from django.shortcuts import render, redirect
@@ -126,14 +126,35 @@ def register(request):
                 'telefono': telefono,
             })
 
-        user = User.objects.create_user(
-            username=usuario,
-            email=correo,
-            password=password,
-            first_name=nombre
-        )
-        user.usuario.telefono = telefono
-        user.usuario.save()
+        try:
+            user = User.objects.create_user(
+                username=usuario,
+                email=correo,
+                password=password,
+                first_name=nombre
+            )
+            
+            # Crear el perfil de usuario manualmente (sin signals)
+            usuario_profile = Usuario.objects.create(user=user, telefono=telefono)
+            
+            messages.success(request, "Usuario creado exitosamente. Ahora puedes iniciar sesión.")
+            
+        except Exception as e:
+            # Si hay error, eliminar el usuario si se creó
+            try:
+                if 'user' in locals():
+                    user.delete()
+            except:
+                pass
+            
+            messages.error(request, f"Error al crear el usuario: {str(e)}")
+            return render(request, 'pages/register.html', {
+                'next': next_url,
+                'nombre': nombre,
+                'usuario': usuario,
+                'correo': correo,
+                'telefono': telefono,
+            })
 
         # Redirigir a login con next
         return redirect(f'/auth/login/?next={next_url}')

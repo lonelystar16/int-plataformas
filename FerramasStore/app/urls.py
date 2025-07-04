@@ -1,15 +1,10 @@
-from django.urls import path, include
-from rest_framework import routers
+from django.urls import path
 from app.presentation import views
-from app.presentation.views import CrearPagoExternoView
+from app.presentation.views import crear_pago_externo_view
 from app.presentation.views import productos_externos_page, valor_dolar_page, crear_pago_page, procesar_pago, voucher_view
 
 # Configuración del namespace de la app
 app_name = 'app'
-
-router = routers.DefaultRouter()
-router.register(r'productos', views.ProductoViewSet)
-router.register(r'categorias', views.CategoriaViewSet)
 
 urlpatterns = [
     # Página principal
@@ -31,15 +26,12 @@ urlpatterns = [
     # Rutas de compra
     path('checkout/', views.checkout, name='checkout'),
     
-    # Rutas de API REST
-    path('api/', include(router.urls)),
-    
     # Rutas de servicios externos
     path('externos/productos/', productos_externos_page, name='productos_externos_page'),
     path('externos/valor-dolar/', valor_dolar_page, name='valor_dolar_page'),
     
     # Rutas de pagos
-    path('pagos/crear-pago-externo/', CrearPagoExternoView.as_view(), name='crear_pago_externo'),
+    path('pagos/crear-pago-externo/', crear_pago_externo_view, name='crear_pago_externo'),
     path('pagos/crear/', crear_pago_page, name='crear_pago_page'),
     path('pagos/procesar/', procesar_pago, name='procesar_pago'),
     path('pagos/voucher/', voucher_view, name='voucher'),

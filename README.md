@@ -16,12 +16,12 @@ FerramasStore es una plataforma web para la gestión y visualización de product
 
 ## Descripción
 
-El proyecto está desarrollado con Django y Django REST Framework, permitiendo:
+El proyecto está desarrollado con Django, permitiendo:
 - Visualización de productos por categorías.
 - Carrito de compras persistente en el navegador.
 - Registro e inicio de sesión de usuarios.
 - Panel de administración para gestionar productos, categorías y usuarios.
-- API RESTful para operaciones CRUD sobre productos y categorías.
+- Integración con APIs externas para productos, pagos y datos financieros.
 - Sistema de descuentos para usuarios autenticados.
 - Pop-up de suscripción a ofertas.
 - Diseño responsivo con Tailwind CSS.
@@ -33,9 +33,8 @@ Estas APIs externas son consumidas desde Django para integrar información adici
 ## Estructura del Proyecto
 
 - **app.domain.models**: Modelos de datos (`Producto`, `Categoria`, `Usuario`).
-- **app.presentation.views**: Vistas para páginas web y endpoints de la API.
-- **app.presentation.serializers**: Serializadores para la API REST.
-- **app.presentation.urls** y **app.urls**: Rutas del sitio y de la API.
+- **app.presentation.views**: Vistas para páginas web.
+- **app.presentation.urls** y **app.urls**: Rutas del sitio.
 - **app/templates/pages/**: Templates HTML para las páginas del sitio.
 - **app/templates/components/**: Componentes reutilizables (ej. carrito).
 - **app/static/**: Archivos estáticos (CSS, JS, imágenes).
@@ -45,7 +44,6 @@ Estas APIs externas son consumidas desde Django para integrar información adici
 
 - **Python 3.10+**
 - **Django 5.2.x**
-- **Django REST Framework**
 - **Tailwind CSS** (CDN)
 - **SQLite** (por defecto, fácilmente migrable a PostgreSQL/MySQL)
 - **HTML5, CSS3, JavaScript (ES6+)**
@@ -109,10 +107,10 @@ Estas APIs externas son consumidas desde Django para integrar información adici
 
 7. **Acceder a la aplicación**
    - Sitio web: [http://localhost:8000/](http://localhost:8000/)
-   - API: [http://localhost:8000/api/](http://localhost:8000/api/)
    - Admin: [http://localhost:8000/admin/](http://localhost:8000/admin/)
    - Productos: [http://localhost:8000/productos/](http://localhost:8000/productos/)
    - Autenticación: [http://localhost:8000/auth/login/](http://localhost:8000/auth/login/)
+   - API Externa: [http://localhost:8001/](http://localhost:8001/) (FastAPI)
 
 ## Funcionalidades principales
 
@@ -120,7 +118,7 @@ Estas APIs externas son consumidas desde Django para integrar información adici
 - **Carrito de compras**: Añadir, quitar y modificar productos, resumen y total.
 - **Autenticación**: Registro, inicio/cierre de sesión bajo `/auth/`, descuentos para usuarios autenticados.
 - **Panel de administración**: Gestión de productos, categorías y usuarios.
-- **API RESTful**: Endpoints para productos y categorías, filtrado por categoría.
+- **APIs Externalizadas**: Productos, Banco Central y Mercado Pago funcionan como servicios independientes con FastAPI.
 - **Pop-up de suscripción**: Para recibir ofertas semanales por correo.
 - **Integración con Mercado Pago**: Pagos gestionados a través de una API externalizada bajo `/pagos/`.
 - **Consulta del valor del dólar**: Consumo de la API del Banco Central de Chile externalizada vía FASTAPI bajo `/externos/`.

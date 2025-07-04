@@ -1,6 +1,5 @@
 # FerramasStore/app/presentation/views.py
 from ..domain.models import Producto, Categoria, Usuario
-from .serializers import ProductoSerializer, CategoriaSerializer
 # Django imports
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
@@ -8,66 +7,121 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-# Django REST Framework imports
-from rest_framework import viewsets, permissions
-from rest_framework.views import APIView
-from rest_framework.response import Response
-from rest_framework import status
-# Clean Architecture imports
-from app.application.use_cases.producto_use_cases import GetProductosPorCategoriaUseCase
-from app.infrastructure.repositories.producto_repository import DjangoProductoRepository, DjangoCategoriaRepository
 # External API services
 from app.infrastructure.external_services.api_externa import obtener_valor_dolar, obtener_productos, crear_preferencia_pago
 
-# Dependency injection
-producto_repository = DjangoProductoRepository()
-categoria_repository = DjangoCategoriaRepository()
-get_productos_por_categoria_use_case = GetProductosPorCategoriaUseCase(producto_repository, categoria_repository)
+# Dependency injection removido ya que no se necesita para vistas de templates
 
 def index(request):
     return render(request, 'pages/mainPage.html')
 
 def herra_manuales(request):
-    productos, error = get_productos_por_categoria_use_case.execute("Herramientas Manuales")
-    context = {'productos': productos}
-    if error:
-        context['error'] = error
-    return render(request, 'pages/herra-manuales.html', context)
+    try:
+        categoria = Categoria.objects.filter(nombre='Herramientas Manuales').first()
+        if not categoria:
+            return render(request, 'pages/herra-manuales.html', {
+                'productos': [],
+                'error': 'Categoría "Herramientas Manuales" no encontrada'
+            })
+        
+        productos = Producto.objects.filter(categoria=categoria, en_venta=True)
+        return render(request, 'pages/herra-manuales.html', {'productos': productos})
+    
+    except Exception as e:
+        return render(request, 'pages/herra-manuales.html', {
+            'productos': [],
+            'error': f'Error al cargar productos: {str(e)}'
+        })
 
 def materiales_basicos(request):
-    productos, error = get_productos_por_categoria_use_case.execute("Materiales Básicos")
-    context = {'productos': productos}
-    if error:
-        context['error'] = error
-    return render(request, 'pages/materiales-basicos.html', context)
+    try:
+        categoria = Categoria.objects.filter(nombre='Materiales Básicos').first()
+        if not categoria:
+            return render(request, 'pages/materiales-basicos.html', {
+                'productos': [],
+                'error': 'Categoría "Materiales Básicos" no encontrada'
+            })
+        
+        productos = Producto.objects.filter(categoria=categoria, en_venta=True)
+        return render(request, 'pages/materiales-basicos.html', {'productos': productos})
+    
+    except Exception as e:
+        return render(request, 'pages/materiales-basicos.html', {
+            'productos': [],
+            'error': f'Error al cargar productos: {str(e)}'
+        })
 
 def equipos_seguridad(request):
-    productos, error = get_productos_por_categoria_use_case.execute("Equipos de Seguridad")
-    context = {'productos': productos}
-    if error:
-        context['error'] = error
-    return render(request, 'pages/equipos-seguridad.html', context)
+    try:
+        categoria = Categoria.objects.filter(nombre='Equipos de Seguridad').first()
+        if not categoria:
+            return render(request, 'pages/equipos-seguridad.html', {
+                'productos': [],
+                'error': 'Categoría "Equipos de Seguridad" no encontrada'
+            })
+        
+        productos = Producto.objects.filter(categoria=categoria, en_venta=True)
+        return render(request, 'pages/equipos-seguridad.html', {'productos': productos})
+    
+    except Exception as e:
+        return render(request, 'pages/equipos-seguridad.html', {
+            'productos': [],
+            'error': f'Error al cargar productos: {str(e)}'
+        })
 
 def tornillos_anclaje(request):
-    productos, error = get_productos_por_categoria_use_case.execute("Tornillos y Anclajes")
-    context = {'productos': productos}
-    if error:
-        context['error'] = error
-    return render(request, 'pages/tornillos-anclaje.html', context)
+    try:
+        categoria = Categoria.objects.filter(nombre='Tornillos y Anclajes').first()
+        if not categoria:
+            return render(request, 'pages/tornillos-anclaje.html', {
+                'productos': [],
+                'error': 'Categoría "Tornillos y Anclajes" no encontrada'
+            })
+        
+        productos = Producto.objects.filter(categoria=categoria, en_venta=True)
+        return render(request, 'pages/tornillos-anclaje.html', {'productos': productos})
+    
+    except Exception as e:
+        return render(request, 'pages/tornillos-anclaje.html', {
+            'productos': [],
+            'error': f'Error al cargar productos: {str(e)}'
+        })
 
 def fijaciones(request):
-    productos, error = get_productos_por_categoria_use_case.execute("Fijaciones")
-    context = {'productos': productos}
-    if error:
-        context['error'] = error
-    return render(request, 'pages/fijaciones.html', context)
+    try:
+        categoria = Categoria.objects.filter(nombre='Fijaciones').first()
+        if not categoria:
+            return render(request, 'pages/fijaciones.html', {
+                'productos': [],
+                'error': 'Categoría "Fijaciones" no encontrada'
+            })
+        
+        productos = Producto.objects.filter(categoria=categoria, en_venta=True)
+        return render(request, 'pages/fijaciones.html', {'productos': productos})
+    
+    except Exception as e:
+        return render(request, 'pages/fijaciones.html', {
+            'productos': [],
+            'error': f'Error al cargar productos: {str(e)}'
+        })
 
 def equipos_medicion(request):
-    productos, error = get_productos_por_categoria_use_case.execute("Equipos de Medición")
-    context = {'productos': productos}
-    if error:
-        context['error'] = error
-    return render(request, 'pages/equipos-medicion.html', context)
+    try:
+        categoria = Categoria.objects.filter(nombre='Equipos de Medición').first()
+        if not categoria:
+            return render(request, 'pages/equipos-medicion.html', {
+                'productos': [],
+                'error': 'Categoría "Equipos de Medición" no encontrada'
+            })
+        
+        productos = Producto.objects.filter(categoria=categoria, en_venta=True)
+        return render(request, 'pages/equipos-medicion.html', {'productos': productos})
+    
+    except Exception as e:
+        return render(request, 'pages/equipos-medicion.html', {
+            'productos': [],
+            'error': f'Error al cargar productos: {str(e)}'
+        })
 
 def login_view(request):
     next_url = request.GET.get('next') or request.POST.get('next') or '/checkout/'
@@ -324,31 +378,26 @@ def procesar_pago(request):
     
     return JsonResponse({'error': 'Método no permitido'}, status=405)
 
-class CategoriaViewSet(viewsets.ModelViewSet):
-    queryset = Categoria.objects.all()
-    permission_classes = [permissions.AllowAny]
-    serializer_class = CategoriaSerializer
-
-class ProductoViewSet(viewsets.ModelViewSet):
-    queryset = Producto.objects.all()
-    permission_classes = [permissions.AllowAny]
-    serializer_class = ProductoSerializer
-
-class CrearPagoExternoView(APIView):
-    def post(self, request):
+@csrf_exempt
+def crear_pago_externo_view(request):
+    if request.method == 'POST':
         try:
+            import json
+            data_json = json.loads(request.body)
             data = {
-                "title": request.data.get("title", "Producto de prueba"),
-                "quantity": int(request.data.get("quantity", 1)),
-                "unit_price": float(request.data.get("unit_price", 1000)),
-                "success_url": request.data.get("success_url", "https://echoapi.io/success"),
-                "failure_url": request.data.get("failure_url", "https://echoapi.io/failure"),
-                "pending_url": request.data.get("pending_url", "https://echoapi.io/pending"),
+                "title": data_json.get("title", "Producto de prueba"),
+                "quantity": int(data_json.get("quantity", 1)),
+                "unit_price": float(data_json.get("unit_price", 1000)),
+                "success_url": data_json.get("success_url", "https://echoapi.io/success"),
+                "failure_url": data_json.get("failure_url", "https://echoapi.io/failure"),
+                "pending_url": data_json.get("pending_url", "https://echoapi.io/pending"),
             }
             resultado = crear_preferencia_pago(data)
-            return Response(resultado)
+            return JsonResponse(resultado)
         except Exception as e:
-            return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return JsonResponse({"error": str(e)}, status=500)
+    
+    return JsonResponse({"error": "Método no permitido"}, status=405)
 
 def voucher_view(request, token=None):
     # Si se proporciona un token, validarlo

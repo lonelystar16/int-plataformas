@@ -1,7 +1,5 @@
 from django.shortcuts import render
-from rest_framework import viewsets, permissions
 from app.domain.models import Producto, Categoria
-from app.presentation.serializers import ProductoSerializer, CategoriaSerializer
 from app.domain.services.api_externa import obtener_productos, obtener_valor_dolar
 def index(request):
     return render(request, 'pages/mainPage.html')
@@ -141,14 +139,4 @@ def valor_dolar_page(request):
             'fecha': None,
             'error': str(e)
         })
-
-class CategoriaViewSet(viewsets.ModelViewSet):
-    queryset = Categoria.objects.all()
-    permission_classes = [permissions.AllowAny]
-    serializer_class = CategoriaSerializer
-
-class ProductoViewSet(viewsets.ModelViewSet):
-    queryset = Producto.objects.all()
-    permission_classes = [permissions.AllowAny]
-    serializer_class = ProductoSerializer
 

@@ -7,10 +7,28 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
+from django.conf import settings
+import logging
 # External API services
 from app.infrastructure.external_services.api_externa import obtener_valor_dolar, obtener_productos, crear_preferencia_pago
+# Security imports
+from app.security.decorators import (
+    secure_auth_view, track_failed_login, is_login_blocked, 
+    clear_failed_login_attempts, honeypot_check, log_suspicious_activity
+)
+from app.security.validators import (
+    validate_chilean_phone, validate_strong_password, 
+    validate_email_domain, sanitize_html_input
+)
 
-# Dependency injection removido ya que no se necesita para vistas de templates
+# Configurar loggers
+security_logger = logging.getLogger('security')
+auth_logger = logging.getLogger('auth')
+import logging
+
+# Logger de seguridad
+security_logger = logging.getLogger('security')
+auth_logger = logging.getLogger('auth')
 
 def index(request):
     return render(request, 'pages/mainPage.html')
@@ -123,64 +141,100 @@ def equipos_medicion(request):
             'error': f'Error al cargar productos: {str(e)}'
         })
 
+@secure_auth_view(rate='5/5m')
+@honeypot_check
 def login_view(request):
-    next_url = request.GET.get('next') or request.POST.get('next') or '/checkout/'
+    next_url = request.GET.get('next') or request.POST.get('next') or '/'
+    
     if request.method == 'POST':
-        usuario = request.POST['usuario']
-        password = request.POST['password']
+        usuario = sanitize_html_input(request.POST.get('usuario', ''))
+        password = request.POST.get('password', '')
+        ip_address = request.META.get('REMOTE_ADDR', '')
+        
+        # Verificar si el login está bloqueado
+        if is_login_blocked(usuario, ip_address):
+            log_suspicious_activity(request, 'LOGIN_BLOCKED', f'Usuario: {usuario}')
+            messages.error(request, "Demasiados intentos fallidos. Cuenta temporalmente bloqueada.")
+            return render(request, 'pages/login.html', {
+                'next': next_url,
+                'usuario': usuario,
+            })
+        
+        # Intentar autenticación
         user = authenticate(request, username=usuario, password=password)
+        
         if user is not None:
+            # Login exitoso
+            clear_failed_login_attempts(usuario, ip_address)
             login(request, user)
+            auth_logger.info(f"Login exitoso para usuario {usuario} desde IP {ip_address}")
             return redirect(next_url)
         else:
+            # Login fallido
+            track_failed_login(usuario, ip_address)
+            security_logger.warning(f"Intento de login fallido para usuario {usuario} desde IP {ip_address}")
             messages.error(request, "Usuario o contraseña incorrectos.")
             return render(request, 'pages/login.html', {
                 'next': next_url,
                 'usuario': usuario,
             })
+    
     return render(request, 'pages/login.html', {'next': next_url})
 
+@secure_auth_view(rate='3/5m')
+@honeypot_check
 def register(request):
-    next_url = request.GET.get('next') or request.POST.get('next') or '/checkout/'
+    # Temporalmente simplificada para evitar redirecciones
     if request.method == 'POST':
-        nombre = request.POST['nombre']
-        usuario = request.POST['usuario']
-        correo = request.POST['correo']
-        password = request.POST['password']
-        password2 = request.POST['password2']
-        telefono = request.POST['telefono']
-
+        # Obtener datos del formulario
+        nombre = request.POST.get('nombre', '')
+        usuario = request.POST.get('usuario', '')
+        correo = request.POST.get('correo', '')
+        password = request.POST.get('password', '')
+        password2 = request.POST.get('password2', '')
+        telefono = request.POST.get('telefono', '')
+        
+        # Validaciones básicas
+        if not all([nombre, usuario, correo, password, password2, telefono]):
+            messages.error(request, "Todos los campos son obligatorios.")
+            return render(request, 'pages/register.html', {
+                'nombre': nombre,
+                'usuario': usuario,
+                'correo': correo,
+                'telefono': telefono,
+            })
+        
         if password != password2:
             messages.error(request, "Las contraseñas no coinciden.")
             return render(request, 'pages/register.html', {
-                'next': next_url,
                 'nombre': nombre,
                 'usuario': usuario,
                 'correo': correo,
                 'telefono': telefono,
             })
-
+        
+        # Verificar usuario único
         if User.objects.filter(username=usuario).exists():
             messages.error(request, "El usuario ya existe.")
             return render(request, 'pages/register.html', {
-                'next': next_url,
                 'nombre': nombre,
                 'usuario': usuario,
                 'correo': correo,
                 'telefono': telefono,
             })
-
+        
+        # Verificar email único
         if User.objects.filter(email=correo).exists():
             messages.error(request, "El correo ya está registrado.")
             return render(request, 'pages/register.html', {
-                'next': next_url,
                 'nombre': nombre,
                 'usuario': usuario,
                 'correo': correo,
                 'telefono': telefono,
             })
-
+        
         try:
+            # Crear usuario
             user = User.objects.create_user(
                 username=usuario,
                 email=correo,
@@ -188,31 +242,22 @@ def register(request):
                 first_name=nombre
             )
             
-            # Crear el perfil de usuario manualmente (sin signals)
+            # Crear perfil de usuario
             usuario_profile = Usuario.objects.create(user=user, telefono=telefono)
             
             messages.success(request, "Usuario creado exitosamente. Ahora puedes iniciar sesión.")
+            return redirect('app:login')
             
         except Exception as e:
-            # Si hay error, eliminar el usuario si se creó
-            try:
-                if 'user' in locals():
-                    user.delete()
-            except:
-                pass
-            
             messages.error(request, f"Error al crear el usuario: {str(e)}")
             return render(request, 'pages/register.html', {
-                'next': next_url,
                 'nombre': nombre,
                 'usuario': usuario,
                 'correo': correo,
                 'telefono': telefono,
             })
-
-        # Redirigir a login con next
-        return redirect(f'/auth/login/?next={next_url}')
-    return render(request, 'pages/register.html', {'next': next_url})
+    
+    return render(request, 'pages/register.html')
 
 def checkout(request):
     discount_percentage = 0  # Por defecto sin descuento
@@ -225,8 +270,13 @@ def checkout(request):
     })
 
 def logout_view(request):
+    ip_address = request.META.get('REMOTE_ADDR', '')
+    username = request.user.username if request.user.is_authenticated else 'Anónimo'
+    
     logout(request)
-    # Puedes redirigir a la página principal, login, o donde prefieras
+    auth_logger.info(f"Logout de usuario {username} desde IP {ip_address}")
+    
+    # Redirigir a la página principal
     return redirect('app:index')
 
 def productos_externos_page(request):
@@ -424,5 +474,22 @@ def voucher_view(request, token=None):
     #     del request.session['voucher_data']
     
     return render(request, 'pages/voucher.html', {'voucher_data': voucher_data})
+
+# Vista para limpiar rate limit (solo para desarrollo)
+def clear_rate_limit(request):
+    """Vista para limpiar el rate limit durante desarrollo"""
+    if settings.DEBUG:
+        from django.core.cache import cache
+        ip_address = request.META.get('REMOTE_ADDR', '')
+        
+        # Limpiar cache de rate limit
+        cache.clear()
+        
+        messages.success(request, f'Rate limit limpiado para IP {ip_address}')
+        auth_logger.info(f"Rate limit manual cleared para IP {ip_address}")
+        
+        return redirect('app:login')
+    else:
+        return redirect('app:index')
 
 

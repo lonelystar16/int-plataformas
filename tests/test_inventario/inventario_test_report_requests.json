@@ -1,0 +1,237 @@
+{
+  "timestamp": "2025-07-06T22:43:29.967796",
+  "base_url": "http://127.0.0.1:8000",
+  "logged_in": true,
+  "test_summary": {
+    "total": 10,
+    "passed": 7,
+    "partial": 0,
+    "failed": 3,
+    "needs_auth": 0,
+    "success_rate": 70.0,
+    "critical_success_rate": 71.42857142857143
+  },
+  "results": [
+    {
+      "name": "Página Principal",
+      "url": "/",
+      "full_url": "http://127.0.0.1:8000/",
+      "requires_auth": false,
+      "critical": true,
+      "test_type": "page",
+      "status": "PASSED",
+      "http_status": 200,
+      "response_time": 0.007275819778442383,
+      "content_length": 10006,
+      "errors": [],
+      "warnings": [],
+      "found_text": [
+        "Ferramas"
+      ],
+      "missing_text": [],
+      "found_json_keys": [],
+      "missing_json_keys": [],
+      "timestamp": "2025-07-06T22:43:27.378225"
+    },
+    {
+      "name": "Página de Login",
+      "url": "/auth/login/",
+      "full_url": "http://127.0.0.1:8000/auth/login/",
+      "requires_auth": false,
+      "critical": true,
+      "test_type": "page",
+      "status": "FAILED",
+      "http_status": 0,
+      "response_time": 0.16468024253845215,
+      "content_length": 0,
+      "errors": [
+        "Unexpected error: Exceeded 30 redirects."
+      ],
+      "warnings": [],
+      "found_text": [],
+      "missing_text": [],
+      "found_json_keys": [],
+      "missing_json_keys": [],
+      "timestamp": "2025-07-06T22:43:27.586707"
+    },
+    {
+      "name": "Página de Registro",
+      "url": "/auth/register/",
+      "full_url": "http://127.0.0.1:8000/auth/register/",
+      "requires_auth": false,
+      "critical": false,
+      "test_type": "page",
+      "status": "FAILED",
+      "http_status": 200,
+      "response_time": 0.0076274871826171875,
+      "content_length": 8578,
+      "errors": [
+        "Page error detected: error"
+      ],
+      "warnings": [],
+      "found_text": [
+        "Registro"
+      ],
+      "missing_text": [],
+      "found_json_keys": [],
+      "missing_json_keys": [],
+      "timestamp": "2025-07-06T22:43:27.953168"
+    },
+    {
+      "name": "Dashboard de Inventario",
+      "url": "/inventario/",
+      "full_url": "http://127.0.0.1:8000/inventario/",
+      "requires_auth": true,
+      "critical": true,
+      "test_type": "page",
+      "status": "PASSED",
+      "http_status": 200,
+      "response_time": 0.04772210121154785,
+      "content_length": 19781,
+      "errors": [],
+      "warnings": [],
+      "found_text": [
+        "Dashboard",
+        "Inventario"
+      ],
+      "missing_text": [],
+      "found_json_keys": [],
+      "missing_json_keys": [],
+      "timestamp": "2025-07-06T22:43:28.161920"
+    },
+    {
+      "name": "Lista de Productos del Inventario",
+      "url": "/inventario/productos/",
+      "full_url": "http://127.0.0.1:8000/inventario/productos/",
+      "requires_auth": true,
+      "critical": true,
+      "test_type": "page",
+      "status": "PASSED",
+      "http_status": 200,
+      "response_time": 0.0849466323852539,
+      "content_length": 20230,
+      "errors": [],
+      "warnings": [],
+      "found_text": [
+        "Lista de Productos",
+        "Productos"
+      ],
+      "missing_text": [],
+      "found_json_keys": [],
+      "missing_json_keys": [],
+      "timestamp": "2025-07-06T22:43:28.411527"
+    },
+    {
+      "name": "Entrada de Inventario",
+      "url": "/inventario/entrada/",
+      "full_url": "http://127.0.0.1:8000/inventario/entrada/",
+      "requires_auth": true,
+      "critical": true,
+      "test_type": "page",
+      "status": "PASSED",
+      "http_status": 200,
+      "response_time": 0.04884696006774902,
+      "content_length": 28826,
+      "errors": [],
+      "warnings": [],
+      "found_text": [
+        "Entrada",
+        "Inventario"
+      ],
+      "missing_text": [],
+      "found_json_keys": [],
+      "missing_json_keys": [],
+      "timestamp": "2025-07-06T22:43:28.697792"
+    },
+    {
+      "name": "Salida de Inventario",
+      "url": "/inventario/salida/",
+      "full_url": "http://127.0.0.1:8000/inventario/salida/",
+      "requires_auth": true,
+      "critical": true,
+      "test_type": "page",
+      "status": "FAILED",
+      "http_status": 200,
+      "response_time": 0.03217577934265137,
+      "content_length": 36885,
+      "errors": [
+        "Page error detected: error"
+      ],
+      "warnings": [],
+      "found_text": [
+        "Salida",
+        "Inventario"
+      ],
+      "missing_text": [],
+      "found_json_keys": [],
+      "missing_json_keys": [],
+      "timestamp": "2025-07-06T22:43:28.948780"
+    },
+    {
+      "name": "Gestión de Alertas",
+      "url": "/inventario/alertas/",
+      "full_url": "http://127.0.0.1:8000/inventario/alertas/",
+      "requires_auth": true,
+      "critical": false,
+      "test_type": "page",
+      "status": "PASSED",
+      "http_status": 200,
+      "response_time": 0.040422916412353516,
+      "content_length": 86571,
+      "errors": [],
+      "warnings": [],
+      "found_text": [
+        "Alertas",
+        "Gestión"
+      ],
+      "missing_text": [],
+      "found_json_keys": [],
+      "missing_json_keys": [],
+      "timestamp": "2025-07-06T22:43:29.182724"
+    },
+    {
+      "name": "Reportes de Inventario",
+      "url": "/inventario/reporte/",
+      "full_url": "http://127.0.0.1:8000/inventario/reporte/",
+      "requires_auth": true,
+      "critical": true,
+      "test_type": "page",
+      "status": "PASSED",
+      "http_status": 200,
+      "response_time": 0.12365484237670898,
+      "content_length": 17352,
+      "errors": [],
+      "warnings": [],
+      "found_text": [
+        "Reporte",
+        "Inventario"
+      ],
+      "missing_text": [],
+      "found_json_keys": [],
+      "missing_json_keys": [],
+      "timestamp": "2025-07-06T22:43:29.425786"
+    },
+    {
+      "name": "API Stock de Producto",
+      "url": "/api/inventario/stock/1/",
+      "full_url": "http://127.0.0.1:8000/api/inventario/stock/1/",
+      "requires_auth": true,
+      "critical": false,
+      "test_type": "api",
+      "status": "PASSED",
+      "http_status": 200,
+      "response_time": 0.013298511505126953,
+      "content_length": 164,
+      "errors": [],
+      "warnings": [],
+      "found_text": [],
+      "missing_text": [],
+      "found_json_keys": [
+        "producto_id",
+        "stock_disponible"
+      ],
+      "missing_json_keys": [],
+      "timestamp": "2025-07-06T22:43:29.752186"
+    }
+  ]
+}

@@ -1,5 +1,6 @@
-from django.urls import path
+from django.urls import path, include
 from app.presentation import views
+from app.presentation import inventario_views
 from app.presentation.views import crear_pago_externo_view
 from app.presentation.views import productos_externos_page, valor_dolar_page, crear_pago_page, procesar_pago, voucher_view
 
@@ -22,6 +23,7 @@ urlpatterns = [
     path('auth/login/', views.login_view, name='login'),
     path('auth/register/', views.register, name='register'),
     path('auth/logout/', views.logout_view, name='logout'),
+    path('auth/clear-rate-limit/', views.clear_rate_limit, name='clear_rate_limit'),  # Solo para desarrollo
     
     # Rutas de compra
     path('checkout/', views.checkout, name='checkout'),
@@ -36,4 +38,14 @@ urlpatterns = [
     path('pagos/procesar/', procesar_pago, name='procesar_pago'),
     path('pagos/voucher/', voucher_view, name='voucher'),
     path('pagos/voucher/<str:token>/', voucher_view, name='voucher_token'),
+    
+    # Rutas de inventario
+    path('inventario/', inventario_views.dashboard_inventario, name='dashboard_inventario'),
+    path('inventario/productos/', inventario_views.lista_productos_inventario, name='lista_productos_inventario'),
+    path('inventario/productos/<int:producto_id>/', inventario_views.detalle_producto_inventario, name='detalle_producto_inventario'),
+    path('inventario/entrada/', inventario_views.entrada_inventario, name='entrada_inventario'),
+    path('inventario/salida/', inventario_views.salida_inventario, name='salida_inventario'),
+    path('inventario/alertas/', inventario_views.gestionar_alertas, name='gestionar_alertas'),
+    path('inventario/reporte/', inventario_views.reporte_inventario, name='reporte_inventario'),
+    path('api/inventario/stock/<int:producto_id>/', inventario_views.api_stock_producto, name='api_stock_producto'),
 ]

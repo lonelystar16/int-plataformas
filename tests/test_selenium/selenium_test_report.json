@@ -1,0 +1,165 @@
+{
+  "timestamp": "2025-07-06T22:38:27.444254",
+  "base_url": "http://127.0.0.1:8000",
+  "logged_in": true,
+  "summary": {
+    "total": 9,
+    "passed": 8,
+    "failed": 0,
+    "warnings": 1,
+    "needs_auth": 0,
+    "success_rate": 88.88888888888889
+  },
+  "results": [
+    {
+      "name": "Página Principal",
+      "url": "/",
+      "full_url": "http://127.0.0.1:8000/",
+      "status": "PASSED",
+      "response_time": 0.1856534481048584,
+      "errors": [],
+      "warnings": [],
+      "found_elements": [
+        "body",
+        "main",
+        "Text: Ferramas"
+      ],
+      "page_title": "Ferramas",
+      "timestamp": "2025-07-06T22:35:05.484575"
+    },
+    {
+      "name": "Página de Login",
+      "url": "/auth/login/",
+      "full_url": "http://127.0.0.1:8000/auth/login/",
+      "status": "WARNING",
+      "response_time": 0.20949101448059082,
+      "errors": [],
+      "warnings": [
+        "Element not found: form",
+        "Element not found: input[name=\"usuario\"]",
+        "Element not found: input[name=\"password\"]",
+        "Text not found: Iniciar Sesión"
+      ],
+      "found_elements": [],
+      "page_title": "127.0.0.1",
+      "timestamp": "2025-07-06T22:35:16.754422"
+    },
+    {
+      "name": "Página de Registro",
+      "url": "/auth/register/",
+      "full_url": "http://127.0.0.1:8000/auth/register/",
+      "status": "PASSED",
+      "response_time": 0.17055177688598633,
+      "errors": [],
+      "warnings": [],
+      "found_elements": [
+        "form",
+        "input[name=\"nombre\"]",
+        "Text: Registro"
+      ],
+      "page_title": "Registro - Ferramas",
+      "timestamp": "2025-07-06T22:35:58.118904"
+    },
+    {
+      "name": "Dashboard de Inventario",
+      "url": "/inventario/",
+      "full_url": "http://127.0.0.1:8000/inventario/",
+      "status": "PASSED",
+      "response_time": 0.28008484840393066,
+      "errors": [],
+      "warnings": [
+        "Element not found: .container",
+        "Element not found: .card-container"
+      ],
+      "found_elements": [
+        "Text: Dashboard"
+      ],
+      "page_title": "Dashboard Inventario - Ferramas",
+      "timestamp": "2025-07-06T22:36:09.338912"
+    },
+    {
+      "name": "Lista de Productos",
+      "url": "/inventario/productos/",
+      "full_url": "http://127.0.0.1:8000/inventario/productos/",
+      "status": "PASSED",
+      "response_time": 0.16401052474975586,
+      "errors": [],
+      "warnings": [
+        "Element not found: .product-table"
+      ],
+      "found_elements": [
+        "table",
+        "Text: Lista de Productos"
+      ],
+      "page_title": "Lista de Productos - Inventario Ferramas",
+      "timestamp": "2025-07-06T22:36:40.719493"
+    },
+    {
+      "name": "Entrada de Inventario",
+      "url": "/inventario/entrada/",
+      "full_url": "http://127.0.0.1:8000/inventario/entrada/",
+      "status": "PASSED",
+      "response_time": 0.12804174423217773,
+      "errors": [],
+      "warnings": [
+        "Element not found: select[name=\"producto\"]"
+      ],
+      "found_elements": [
+        "form",
+        "Text: Entrada de Inventario"
+      ],
+      "page_title": "Entrada de Inventario - Ferramas",
+      "timestamp": "2025-07-06T22:37:01.983119"
+    },
+    {
+      "name": "Salida de Inventario",
+      "url": "/inventario/salida/",
+      "full_url": "http://127.0.0.1:8000/inventario/salida/",
+      "status": "PASSED",
+      "response_time": 0.13475441932678223,
+      "errors": [],
+      "warnings": [
+        "Element not found: select[name=\"producto\"]"
+      ],
+      "found_elements": [
+        "form",
+        "Text: Salida de Inventario"
+      ],
+      "page_title": "Salida de Inventario - Ferramas",
+      "timestamp": "2025-07-06T22:37:23.209137"
+    },
+    {
+      "name": "Gestión de Alertas",
+      "url": "/inventario/alertas/",
+      "full_url": "http://127.0.0.1:8000/inventario/alertas/",
+      "status": "PASSED",
+      "response_time": 0.3269977569580078,
+      "errors": [],
+      "warnings": [
+        "Element not found: .tab-navigation",
+        "Element not found: .alerts-container"
+      ],
+      "found_elements": [
+        "Text: Gestión de Alertas"
+      ],
+      "page_title": "TemplateSyntaxError at /inventario/alertas/",
+      "timestamp": "2025-07-06T22:37:44.459274"
+    },
+    {
+      "name": "Reportes de Inventario",
+      "url": "/inventario/reporte/",
+      "full_url": "http://127.0.0.1:8000/inventario/reporte/",
+      "status": "PASSED",
+      "response_time": 0.28771448135375977,
+      "errors": [],
+      "warnings": [],
+      "found_elements": [
+        ".report-container",
+        "form",
+        "Text: Reporte de Inventario"
+      ],
+      "page_title": "Reporte de Inventario - Ferramas",
+      "timestamp": "2025-07-06T22:38:15.908168"
+    }
+  ]
+}

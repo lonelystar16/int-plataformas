@@ -1,0 +1,196 @@
+{
+  "timestamp": "2025-07-06T22:22:32.104793",
+  "framework": "Django Test Client",
+  "summary": {
+    "total": 10,
+    "passed": 0,
+    "warnings": 0,
+    "failed": 10,
+    "success_rate": 0.0
+  },
+  "results": [
+    {
+      "name": "Página Principal",
+      "url": "/",
+      "url_name": "app:index",
+      "status": "FAILED",
+      "status_code": 400,
+      "errors": [
+        "Expected status 200, got 400",
+        "Django traceback detected"
+      ],
+      "warnings": [
+        "Content not found: navbar"
+      ],
+      "found_content": [
+        "Content: Ferramas"
+      ],
+      "timestamp": "2025-07-06T22:22:31.367233",
+      "resolved_url": "/"
+    },
+    {
+      "name": "Página de Login",
+      "url": "/auth/login/",
+      "url_name": "app:login",
+      "status": "FAILED",
+      "status_code": 400,
+      "errors": [
+        "Expected status 200, got 400",
+        "Django traceback detected"
+      ],
+      "warnings": [
+        "Content not found: username"
+      ],
+      "found_content": [
+        "Content: login",
+        "Content: password"
+      ],
+      "timestamp": "2025-07-06T22:22:31.819767",
+      "resolved_url": "/auth/login/"
+    },
+    {
+      "name": "Dashboard de Inventario",
+      "url": "/inventario/",
+      "url_name": "app:dashboard_inventario",
+      "status": "FAILED",
+      "status_code": 400,
+      "errors": [
+        "Expected status 200, got 400",
+        "Django traceback detected"
+      ],
+      "warnings": [],
+      "found_content": [
+        "Content: Dashboard",
+        "Content: inventario"
+      ],
+      "timestamp": "2025-07-06T22:22:31.850814",
+      "resolved_url": "/inventario/"
+    },
+    {
+      "name": "Lista de Productos",
+      "url": "/inventario/productos/",
+      "url_name": "app:lista_productos_inventario",
+      "status": "FAILED",
+      "status_code": 400,
+      "errors": [
+        "Expected status 200, got 400",
+        "Django traceback detected"
+      ],
+      "warnings": [
+        "Content not found: tabla"
+      ],
+      "found_content": [
+        "Content: productos"
+      ],
+      "timestamp": "2025-07-06T22:22:31.879554",
+      "resolved_url": "/inventario/productos/"
+    },
+    {
+      "name": "Detalle de Producto",
+      "url": "/inventario/productos/1/",
+      "url_name": "app:detalle_producto_inventario",
+      "status": "FAILED",
+      "status_code": 400,
+      "errors": [
+        "Expected status 200, got 400",
+        "Django traceback detected"
+      ],
+      "warnings": [
+        "Content not found: stock"
+      ],
+      "found_content": [
+        "Content: detalle"
+      ],
+      "timestamp": "2025-07-06T22:22:31.914885",
+      "resolved_url": "/inventario/productos/1/"
+    },
+    {
+      "name": "Entrada de Inventario",
+      "url": "/inventario/entrada/",
+      "url_name": "app:entrada_inventario",
+      "status": "FAILED",
+      "status_code": 400,
+      "errors": [
+        "Expected status 200, got 400",
+        "Django traceback detected"
+      ],
+      "warnings": [],
+      "found_content": [
+        "Content: entrada",
+        "Content: form"
+      ],
+      "timestamp": "2025-07-06T22:22:31.946895",
+      "resolved_url": "/inventario/entrada/"
+    },
+    {
+      "name": "Salida de Inventario",
+      "url": "/inventario/salida/",
+      "url_name": "app:salida_inventario",
+      "status": "FAILED",
+      "status_code": 400,
+      "errors": [
+        "Expected status 200, got 400",
+        "Django traceback detected"
+      ],
+      "warnings": [],
+      "found_content": [
+        "Content: salida",
+        "Content: form"
+      ],
+      "timestamp": "2025-07-06T22:22:31.978778",
+      "resolved_url": "/inventario/salida/"
+    },
+    {
+      "name": "Gestión de Alertas",
+      "url": "/inventario/alertas/",
+      "url_name": "app:gestionar_alertas",
+      "status": "FAILED",
+      "status_code": 400,
+      "errors": [
+        "Expected status 200, got 400",
+        "Django traceback detected"
+      ],
+      "warnings": [
+        "Content not found: gestión"
+      ],
+      "found_content": [
+        "Content: alertas"
+      ],
+      "timestamp": "2025-07-06T22:22:32.011984",
+      "resolved_url": "/inventario/alertas/"
+    },
+    {
+      "name": "Reportes de Inventario",
+      "url": "/inventario/reporte/",
+      "url_name": "app:reporte_inventario",
+      "status": "FAILED",
+      "status_code": 400,
+      "errors": [
+        "Expected status 200, got 400",
+        "Django traceback detected"
+      ],
+      "warnings": [],
+      "found_content": [
+        "Content: reporte",
+        "Content: inventario"
+      ],
+      "timestamp": "2025-07-06T22:22:32.037930",
+      "resolved_url": "/inventario/reporte/"
+    },
+    {
+      "name": "API Stock Producto",
+      "url": "/api/inventario/stock/1/",
+      "url_name": "app:api_stock_producto",
+      "status": "FAILED",
+      "status_code": 400,
+      "errors": [
+        "Expected status 200, got 400",
+        "Invalid JSON response"
+      ],
+      "warnings": [],
+      "found_content": [],
+      "timestamp": "2025-07-06T22:22:32.071185",
+      "resolved_url": "/api/inventario/stock/1/"
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+# Dependencias adicionales para testing de URLs
+colorama>=0.4.4
+requests>=2.25.1

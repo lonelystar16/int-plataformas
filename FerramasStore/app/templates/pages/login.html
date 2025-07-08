@@ -40,6 +40,13 @@
         <form method="post" class="w-full max-w-md mx-auto mt-12" data-usuario="{{ usuario|default:''|escapejs }}">
             {% csrf_token %}
             <input type="hidden" name="next" value="{{ next }}">
+            
+            <!-- Campo honeypot para detectar bots (debe estar oculto) -->
+            <div style="display: none;">
+                <label for="website">Website:</label>
+                <input type="text" id="website" name="website" autocomplete="off" tabindex="-1">
+            </div>
+            
             <h2 class="text-4xl font-bold mb-10 text-left">Iniciar sesion</h2>
             <div class="flex flex-col space-y-6">
                 <div>
@@ -59,7 +66,7 @@
                 <button type="submit" class="bg-black text-white w-full py-2 font-bold text-base mt-2 mb-2">INGRESAR</button>
                 <div class="flex flex-col items-center mt-2">
                     <hr class="w-2/3 border-black mb-1">
-                    <a href="/register/" class="text-xs text-black font-semibold tracking-wide mt-1">NO TENGO CUENTA?</a>
+                    <a href="{% url 'app:register' %}" class="text-xs text-black font-semibold tracking-wide mt-1">NO TENGO CUENTA?</a>
                 </div>
             </div>
         </form>

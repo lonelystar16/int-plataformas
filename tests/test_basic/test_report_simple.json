@@ -1,0 +1,153 @@
+{
+  "timestamp": "2025-07-06T22:27:32.537376",
+  "summary": {
+    "passed": 1,
+    "failed": 8,
+    "warnings": 2,
+    "expected": 0,
+    "total": 11
+  },
+  "results": [
+    {
+      "name": "Página Principal",
+      "url": "/",
+      "full_url": "http://127.0.0.1:8000/",
+      "status": "PASSED",
+      "http_status": 200,
+      "response_time": 0.004831552505493164,
+      "errors": [],
+      "warnings": [],
+      "timestamp": "2025-07-06T22:27:31.175851"
+    },
+    {
+      "name": "Página de Login",
+      "url": "/auth/login/",
+      "full_url": "http://127.0.0.1:8000/auth/login/",
+      "status": "WARNING",
+      "http_status": 200,
+      "response_time": 0.0047702789306640625,
+      "errors": [],
+      "warnings": [
+        "Page contains error keywords"
+      ],
+      "timestamp": "2025-07-06T22:27:31.181433"
+    },
+    {
+      "name": "Página de Registro",
+      "url": "/auth/register/",
+      "full_url": "http://127.0.0.1:8000/auth/register/",
+      "status": "WARNING",
+      "http_status": 200,
+      "response_time": 0.005623340606689453,
+      "errors": [],
+      "warnings": [
+        "Page contains error keywords"
+      ],
+      "timestamp": "2025-07-06T22:27:31.186727"
+    },
+    {
+      "name": "Dashboard de Inventario",
+      "url": "/inventario/",
+      "full_url": "http://127.0.0.1:8000/inventario/",
+      "status": "FAILED",
+      "http_status": 0,
+      "response_time": 0,
+      "errors": [
+        "Unexpected error: Exceeded 30 redirects."
+      ],
+      "warnings": [],
+      "timestamp": "2025-07-06T22:27:31.192904"
+    },
+    {
+      "name": "Lista de Productos",
+      "url": "/inventario/productos/",
+      "full_url": "http://127.0.0.1:8000/inventario/productos/",
+      "status": "FAILED",
+      "http_status": 0,
+      "response_time": 0,
+      "errors": [
+        "Unexpected error: Exceeded 30 redirects."
+      ],
+      "warnings": [],
+      "timestamp": "2025-07-06T22:27:31.358272"
+    },
+    {
+      "name": "Entrada de Inventario",
+      "url": "/inventario/entrada/",
+      "full_url": "http://127.0.0.1:8000/inventario/entrada/",
+      "status": "FAILED",
+      "http_status": 0,
+      "response_time": 0,
+      "errors": [
+        "Unexpected error: Exceeded 30 redirects."
+      ],
+      "warnings": [],
+      "timestamp": "2025-07-06T22:27:31.530252"
+    },
+    {
+      "name": "Salida de Inventario",
+      "url": "/inventario/salida/",
+      "full_url": "http://127.0.0.1:8000/inventario/salida/",
+      "status": "FAILED",
+      "http_status": 0,
+      "response_time": 0,
+      "errors": [
+        "Unexpected error: Exceeded 30 redirects."
+      ],
+      "warnings": [],
+      "timestamp": "2025-07-06T22:27:31.713770"
+    },
+    {
+      "name": "Gestión de Alertas",
+      "url": "/inventario/alertas/",
+      "full_url": "http://127.0.0.1:8000/inventario/alertas/",
+      "status": "FAILED",
+      "http_status": 0,
+      "response_time": 0,
+      "errors": [
+        "Unexpected error: Exceeded 30 redirects."
+      ],
+      "warnings": [],
+      "timestamp": "2025-07-06T22:27:31.908640"
+    },
+    {
+      "name": "Reportes de Inventario",
+      "url": "/inventario/reporte/",
+      "full_url": "http://127.0.0.1:8000/inventario/reporte/",
+      "status": "FAILED",
+      "http_status": 0,
+      "response_time": 0,
+      "errors": [
+        "Unexpected error: Exceeded 30 redirects."
+      ],
+      "warnings": [],
+      "timestamp": "2025-07-06T22:27:32.108870"
+    },
+    {
+      "name": "API Status",
+      "url": "/api/",
+      "full_url": "http://127.0.0.1:8000/api/",
+      "status": "FAILED",
+      "http_status": 404,
+      "response_time": 0.009641408920288086,
+      "errors": [
+        "Page not found"
+      ],
+      "warnings": [],
+      "timestamp": "2025-07-06T22:27:32.314028"
+    },
+    {
+      "name": "API Stock Producto",
+      "url": "/api/inventario/stock/1/",
+      "full_url": "http://127.0.0.1:8000/api/inventario/stock/1/",
+      "status": "FAILED",
+      "http_status": 0,
+      "response_time": 0,
+      "errors": [
+        "Unexpected error: Exceeded 30 redirects."
+      ],
+      "warnings": [],
+      "timestamp": "2025-07-06T22:27:32.324055"
+    }
+  ]
+}

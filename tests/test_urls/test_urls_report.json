@@ -1,0 +1,49 @@
+{
+  "timestamp": "2025-07-06T22:27:04.362182",
+  "summary": {
+    "total": 2,
+    "passed": 0,
+    "warnings": 0,
+    "failed": 2,
+    "success_rate": 0.0
+  },
+  "results": [
+    {
+      "name": "Página Principal",
+      "url": "/",
+      "full_url": "http://127.0.0.1:8000/",
+      "status": "FAILED",
+      "response_time": 0.22271251678466797,
+      "errors": [
+        "Server error detected"
+      ],
+      "warnings": [
+        "Element not found: nav"
+      ],
+      "found_elements": [
+        "body",
+        "Text: Ferramas"
+      ],
+      "timestamp": "2025-07-06T22:26:43.807964"
+    },
+    {
+      "name": "Página de Login",
+      "url": "/auth/login/",
+      "full_url": "http://127.0.0.1:8000/auth/login/",
+      "status": "FAILED",
+      "response_time": 0.15450000762939453,
+      "errors": [
+        "Server error detected"
+      ],
+      "warnings": [
+        "Element not found: input[name=\"username\"]"
+      ],
+      "found_elements": [
+        "form",
+        "input[name=\"password\"]",
+        "Text: Iniciar Sesión"
+      ],
+      "timestamp": "2025-07-06T22:26:54.134729"
+    }
+  ]
+}
